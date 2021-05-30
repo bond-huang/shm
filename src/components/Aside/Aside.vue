@@ -17,9 +17,7 @@
         <i class="el-icon-menu"></i>
         <span>Systems Class</span>
       </template>
-        <el-scrollbar style="height: 100%">
-        <ChildrenMenu  v-bind:children="sideMenuList" />
-        </el-scrollbar>
+        <ChildrenMenu v-bind:children="sideMenuList" />
     </el-submenu>
     <el-submenu index="2">
       <template #title><i class="el-icon-bank-card"></i><span>System Admin</span></template>
@@ -43,7 +41,7 @@
       <i class="el-icon-document"></i>
       <template #title>Document</template>
     </el-menu-item>
-        <el-menu-item index="5">
+    <el-menu-item index="5">
       <i class="el-icon-question"></i>
       <template #title>Help</template>
     </el-menu-item>
@@ -90,9 +88,14 @@ export default {
       this.isCollapse = !this.isCollapse;
     },
     mounted(){
-      getMenu().then(resp => {
-        this.sideMenuList = resp
-      })
+     const timer = setInterval(()=> {
+      if (this.mockInitFinished){
+        getMenu().then(resp => {
+          this.sideMenuList = resp
+          clearInterval(timer)
+        })
+      }
+    },10)
     },
   }
 }

@@ -5,7 +5,7 @@ const menu = {
         if (param.username == 'admin' && param.password == '123456') {
             return {
               statusCode: "200",
-              statusMessage: 'Login successful',
+              statusMessage: 'Successful',
               data: {
                 accessToken: 'xxx',
                 refreshToken: 'xxx'
@@ -25,30 +25,42 @@ const menu = {
     'GET /menu': {
         statusCode: "200", statusMessage: "succcess", data: [
         {
-          menuId: "2",
+          menuId: "1-1",
           menuType: 1,
-          menuName: '系统管理',
-          iconClass: 'el-icon-location',
+          menuName: 'AIX system',
           children: [
             {
-              menuId: "2-1",
+              menuId: "1-1-1",
               menuType: 2,
-              menuName: '数据集管理',
+              menuName: 'AIXtest1',
               path: '/modeller',
             },
             {
-              menuId: "2-2",
+              menuId: "1-1-2",
               menuType: 2,
-              menuName: '内容管理',
+              menuName: 'AIXtest1',
               path: '/modeller',
             }
           ]
         },
         {
-          menuId: "3-1",
+          menuId: "1-2",
           menuType: 2,
-          menuName: '数据集管理',
-          path: '/modeller',
+          menuName: 'Linux system',
+          children: [
+            {
+              menuId: "1-2-1",
+              menuType: 2,
+              menuName: 'Linuxtest1',
+              path: '/modeller',
+            },
+            {
+              menuId: "1-2-2",
+              menuType: 2,
+              menuName: 'Linuxtest2',
+              path: '/modeller',
+            }
+          ]
         }
       ]
     }

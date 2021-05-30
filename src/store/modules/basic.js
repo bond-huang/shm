@@ -2,12 +2,16 @@ const basic = {
     state: {
         height: document.documentElement.clientHeight,
         loginStatus: false,
+        mockInitFinished: false,
         userInfo: {
             userId: 'admin',
             nickname: 'admin',
         }
     },
     mutations: {
+        MOCK_INIT_FINISHED: (state, status) => {
+            state.mockInitFinished = status
+        },
         AUTO_WINDOW_HEIGHT: state => {
             state.height = document.documentElement.clientHeight
         },
@@ -19,6 +23,9 @@ const basic = {
         }
     },
     actions: {
+        mockInitFinished({ commit }, status) {
+            commit('MOCK_INIT_FINISHED', status)
+        },
         autoHeight({ commit }) {
             commit('AUTO_WINDOW_HEIGHT')
         },

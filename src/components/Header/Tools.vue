@@ -31,7 +31,7 @@
             <a href="https://github.com/bond-huang" target="_blank"> 
             <i class="bi bi-github"></i>&nbsp;GitHub</a></el-dropdown-item>
           <el-dropdown-item>
-            <a href="https://github.com/bond-huang/System-Health-Check/blob/main/LICENSE" target="_blank">
+            <a href="https://github.com/bond-huang/shm/blob/master/LICENSE" target="_blank">
             <i class="el-icon-s-check"></i>&nbsp;License</a></el-dropdown-item>
         </el-dropdown-menu>
       </template>
