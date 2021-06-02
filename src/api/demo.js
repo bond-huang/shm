@@ -6,7 +6,6 @@ export function getModeller() {
     return axios.get('/modeller')
 }
 
-
 export function getModellerColumn(params) {
     return axios.get('/modeller/detail/page', {
         params: params

@@ -23,27 +23,26 @@ const menu = {
         }
     },
     'GET /menu': {
-        statusCode: "200", statusMessage: "succcess", data: [
-        {
-          menuId: "1-1",
-          menuType: 1,
-          menuName: 'AIX system',
-          children: [
-            {
-              menuId: "1-1-1",
-              menuType: 2,
-              menuName: 'AIXtest1',
-              path: '/modeller',
-            },
-            {
-              menuId: "1-1-2",
-              menuType: 2,
-              menuName: 'AIXtest1',
-              path: '/modeller',
-            }
-          ]
-        },
-        {
+      statusCode: "200", statusMessage: "succcess", data: 
+      [{
+        menuId: "1-1",
+        menuType: 1,
+        menuName: 'AIX system',
+        children: [
+          {
+            menuId: "1-1-1",
+            menuType: 2,
+            menuName: 'AIXtest1',
+            path: '/modeller',
+          },
+          {
+            menuId: "1-1-2",
+            menuType: 2,
+            menuName: 'AIXtest2',
+            path: '/modeller',
+          }]
+      },
+      {
           menuId: "1-2",
           menuType: 2,
           menuName: 'Linux system',
@@ -57,13 +56,11 @@ const menu = {
             {
               menuId: "1-2-2",
               menuType: 2,
-              menuName: 'Linuxtest2',
+              menuName: 'LinuxXtest2',
               path: '/modeller',
-            }
-          ]
-        }
-      ]
-    }
+            }]
+      }]
+  }
 }
 
 export default menu;

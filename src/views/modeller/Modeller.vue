@@ -40,6 +40,39 @@
       </el-table-column>
     </el-table>
     <basic-pagination :total="pageTotal" @pageChange="pageChange"></basic-pagination>
+    
+    <div v-for="(item, index) in testData" :key="index">
+    <el-table
+      v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      v-if="item.menuType == 1"
+      :data="item.children"
+      border
+      style="width: 100%; margin-top: 18px;"
+    >
+      <el-table-column fixed label="序号" type="index" width="60"></el-table-column>
+      <el-table-column fixed prop="menuID" label="菜单ID" width="120"></el-table-column>
+      <el-table-column fixed prop="menuName" label="菜单名称" width="230"></el-table-column>
+      <el-table-column fixed prop="path" label="备注"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="160">
+        <template v-slot="scope">
+          <el-button @click="openColumn(scope.row)" type="text" size="small">字段管理</el-button>
+          <el-button type="text" size="small" @click="toModelEdit(scope.row)">编辑</el-button>
+          <el-button @click="handleDeleteModel(scope.row.modelId)" type="text" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    </div>
+    
+    <ul>
+    <div v-for="(item, index) in testData" :key="index">
+    <li v-if="item.menuType == 2">
+      {{ index }}:{{ item.menuId }}:{{ item.menuName }}
+    </li>
+    </div>
+    </ul>
+
   </div>
 </template>
 
@@ -142,6 +175,7 @@ export default {
       pageSize : 10, //默认每页显示多少条
       loading: true,
       modellerData: [],
+      testData: [],
       search: {
         modeller: ""
       }

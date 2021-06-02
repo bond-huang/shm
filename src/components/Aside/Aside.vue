@@ -17,17 +17,17 @@
         <i class="el-icon-menu"></i>
         <span>Systems Class</span>
       </template>
-        <ChildrenMenu v-bind:children="sideMenuList" />
+        <ChildrenMenu v-bind:menuData="sideMenuList" />
     </el-submenu>
     <el-submenu index="2">
       <template #title><i class="el-icon-bank-card"></i><span>System Admin</span></template>
         <el-menu-item-group>
-          <el-menu-item index="2-1">
-            <router-link to="/allsystems">
-              All Systems</router-link></el-menu-item>
-          <el-menu-item index="2-2">
-            <router-link to="/modeller">
-            System Class</router-link></el-menu-item>
+          <el-menu-item index="2-1" @click="openPage('/allsystems')">
+            All Systems
+          </el-menu-item>
+          <el-menu-item index="2-2" @click="openPage('/modeller')">
+            System Class
+          </el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="3">
@@ -86,17 +86,12 @@ export default {
         this.foldicon = 'el-icon-s-unfold';
         }
       this.isCollapse = !this.isCollapse;
-    },
-    mounted(){
-     const timer = setInterval(()=> {
-      if (this.mockInitFinished){
-        getMenu().then(resp => {
-          this.sideMenuList = resp
-          clearInterval(timer)
-        })
-      }
-    },10)
-    },
+    }
+  },
+  mounted(){
+    getMenu().then(resp => {
+      this.sideMenuList = resp
+    })
   }
 }
 </script>

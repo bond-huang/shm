@@ -20,7 +20,7 @@ const modeller = {
             {
                 modelId: 3,
                 modelName: "测试数据集2",
-                remark: "",
+                remark: "test data",
                 updateDate: "2019-12-25 12:00:00",
                 updateBy: "admin"
             },
@@ -34,7 +34,7 @@ const modeller = {
             {
                 modelId: 5,
                 modelName: "测试数据集4",
-                remark: "",
+                remark: "test data",
                 updateDate: "2019-12-25 12:00:00",
                 updateBy: "admin"
             },

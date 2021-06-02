@@ -1,5 +1,4 @@
 import Mock from 'mockjs'
-import store from '@/store/index.js'
 
 const mock_source = ['biz.js', 'sys.js']
 
@@ -30,5 +29,4 @@ function initMock(rules) {
 
 if (mock_source && mock_source.length > 0) {
     load(mock_source)
-    store.dispatch('mockInitFinished', true)
 }
