@@ -33,13 +33,13 @@ const menu = {
             menuId: "1-1-1",
             menuType: 2,
             menuName: 'AIXtest1',
-            path: '/modeller',
+            path: '/allsystems',
           },
           {
             menuId: "1-1-2",
             menuType: 2,
             menuName: 'AIXtest2',
-            path: '/modeller',
+            path: '/allsystems',
           }]
       },
       {
@@ -51,13 +51,13 @@ const menu = {
               menuId: "1-2-1",
               menuType: 2,
               menuName: 'Linuxtest1',
-              path: '/modeller',
+              path: '/allsystems',
             },
             {
               menuId: "1-2-2",
               menuType: 2,
               menuName: 'LinuxXtest2',
-              path: '/modeller',
+              path: '/allsystems',
             }]
       }]
   }

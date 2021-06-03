@@ -1,17 +1,18 @@
 <template>
   <div>
     <el-table 
-    :data="tableData.filter(data => !search 
-    || data.Hostname.toLowerCase().includes(search.toLowerCase())
+    :data="allsysList.filter(data => !search 
+    || data.HostName.toLowerCase().includes(search.toLowerCase())
     || data.IPadd.toLowerCase().includes(search.toLowerCase())
-    || data.Hosttype.toLowerCase().includes(search.toLowerCase())
+    || data.HostType.toLowerCase().includes(search.toLowerCase())
     || data.Description.toLowerCase().includes(search.toLowerCase()))"
     :span-method="arraySpanMethod"
     v-loading="loading"
     element-loading-text="Loading..."
     element-loading-spinner="el-icon-loading">
-      <el-table-column prop="Hosttype" label="Host Type"></el-table-column>
-      <el-table-column prop="Hostname" label="Host Name"></el-table-column>
+      <el-table-column prop="HostId" label="ID" width="60"></el-table-column>
+      <el-table-column prop="HostType" label="Host Type"></el-table-column>
+      <el-table-column prop="HostName" label="Host Name"></el-table-column>
       <el-table-column prop="IPadd" label="IP Address"></el-table-column>
       <el-table-column prop="Description" label="Description" width="300">
       </el-table-column>
@@ -23,15 +24,15 @@
           <el-button size="mini"
             @click="handleEdit(scope.$index, scope.row)">View</el-button>
           <el-button size="mini"
-            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+            @click="toHostEdit(scope.row)">Edit</el-button>
           <el-button size="mini" type="danger"
-            @click="handleDeleteModel(scope.row.modelId)">Delete</el-button>
+            @click="handleDelete(scope.row.modelId)">Delete</el-button>
         </template>
       </el-table-column>
       <el-table-column align="right" width="70">
         <template #header>
           <el-button size="mini" type="success"
-            @click="handleDelete(scope.$index, scope.row)" >Add</el-button>
+            @click="()=> this.$router.push('/allsystems/update')" >Add</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -41,7 +42,7 @@
 
 <script>
 import BasicPagination from "@/components/pagination/BasicPagination"
-import { deleteModel } from "@/api/demo.js"
+import { getSystems, deleteHost } from "@/api/demo.js"
 
 export default {
   name: "Allsystems",
@@ -49,17 +50,11 @@ export default {
     BasicPagination
   },
   data() {
-    const item = {
-    Hosttype: 'AIX',
-    Hostname: 'aix7236test',
-    IPadd: '192.168.100.100',
-    Description: 'IBM AIX test system IBM AIX test system'
-    };
     return {
     pageIndex : 1, // 默认页数
     pageTotal: 1, // 默认总条数
     pageSize : 10, //默认每页显示多少条
-    tableData: Array(20).fill(item),
+    allsysList: [],
     search: ''
     }
   },
@@ -69,17 +64,26 @@ export default {
         this.pageSize = item.pageLimit;
         this.handleSearch();//改变页码，重新渲染页面
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    toHostEdit(row) {
+      this.$router.push({
+        name: "update",
+        params: {
+          HostId: row.HostId,
+          HostType: row.HostType,
+          HostName: row.HostName,
+          IPadd: row.IPadd,
+          Description: row.Description
+        }
+      });
     },
-    handleDeleteModel(modelId) {
+    handleDelete(modelId) {
       this.$confirm("This operation will delete the data,are you sure?", "Prompt information", {
         confirmButtonText: "Confirm",
         cancelButtonText: "Cancel",
         type: "warning"
       })
         .then(() => {
-          deleteModel(modelId).then(() => {
+          deleteHost(modelId).then(() => {
             this.$message.success("Successfully Deleted");
             this.refresh();
           });
@@ -93,10 +97,16 @@ export default {
     },
     //表格单元格合并
     arraySpanMethod({ columnIndex }) {
-      if (columnIndex === 4) {
+      if (columnIndex === 5) {
         return [1, 2];
       }
     },
+  },
+  mounted() {
+    getSystems().then(response => {
+      this.allsysList = response.content;
+      this.pageTotal=response.total;//分页相关
+    });
   },
 };
 </script>

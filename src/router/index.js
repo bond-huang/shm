@@ -6,13 +6,8 @@ import Login from '@/views/Login'
 import Vuehome from '@/views/Vuehome.vue'
 import Gump from '@/views/Gump.vue'
 
-import Allsystems from '@/views/modeller/Allsystems'
-
-import Modeller from '@/views/modeller/Modeller'
-import ModelUpdate from '@/views/modeller/ModelUpdate'
-import ModelColumn from '@/views/modeller/column/ModelColumn'
-import ModelColumnUpdate from '@/views/modeller/column/ModelColumnUpdate'
-
+import Allsystems from '@/views/allsystems/AllSystems'
+import HostUpdate from '@/views/allsystems/HostUpdate'
 
 const routes = [{
   path: '',
@@ -38,56 +33,8 @@ const routes = [{
           title: '首页'
       }
   }]
-}, {
-  path: '/',
-  component: BaseLayout,
-  children: [{
-      path: 'modeller',
-      component: Modeller,
-      meta: {
-          title: '数据集管理'
-      }
-  }, 
-    {
-      path: 'modeller',
-      component: EmptyLayout,
-      meta: {
-          title: '数据集管理'
-      }, children: [
-          {
-              path: 'add',
-              name: 'add',
-              component: ModelUpdate,
-              meta: {
-                  title: '新增数据集',
-              }
-          }, {
-              path: 'column',
-              name: 'column',
-              component: ModelColumn,
-              meta: {
-                  title: '字段管理'
-              }
-          }, {
-              path: 'column',
-              component: EmptyLayout,
-              meta: {
-                  title: '字段管理'
-              },
-              children: [
-                  {
-                      path: 'add',
-                      name: 'modeller-column-add',
-                      component: ModelColumnUpdate,
-                      meta: {
-                          title: '新增字段'
-                      }
-                  }
-              ]
-          }
-      ]
-  }]
-},{
+},
+  {
     path: '/gump',
     component: BaseLayout,
     children: [{
@@ -119,11 +66,28 @@ const routes = [{
         component: Allsystems,
         name: 'allsystems',
         meta: {
-            title: 'allsystems'
+            title: 'All Systems'
         }
+    },
+    {
+        path: '/allsystems',
+        component: EmptyLayout,
+        meta: {
+            title: 'All Systems'
+        }, children: [
+            {
+                path: 'update',
+                name: 'update',
+                component: HostUpdate,
+                meta: {
+                    title: 'Update Host',
+                }
+            },
+        ]
     }]
   },
 ]
+
 
 const router = createRouter({
   history: createWebHashHistory(),
