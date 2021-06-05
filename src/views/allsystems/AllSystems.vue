@@ -5,18 +5,21 @@
     || data.HostName.toLowerCase().includes(search.toLowerCase())
     || data.IPadd.toLowerCase().includes(search.toLowerCase())
     || data.HostType.toLowerCase().includes(search.toLowerCase())
-    || data.Description.toLowerCase().includes(search.toLowerCase()))"
+    || data.Description.toLowerCase().includes(search.toLowerCase())
+    || data.StatusInfo.toLowerCase().includes(search.toLowerCase()))"
     :span-method="arraySpanMethod"
     v-loading="loading"
+    height="390"
     element-loading-text="Loading..."
     element-loading-spinner="el-icon-loading">
       <el-table-column prop="HostId" label="ID" width="60"></el-table-column>
       <el-table-column prop="HostType" label="Host Type"></el-table-column>
       <el-table-column prop="HostName" label="Host Name"></el-table-column>
       <el-table-column prop="IPadd" label="IP Address"></el-table-column>
-      <el-table-column prop="Description" label="Description" width="300">
+      <el-table-column prop="StatusInfo" label="Status"  width="75"></el-table-column>
+      <el-table-column prop="Description" label="Description" width="280">
       </el-table-column>
-      <el-table-column align="right" width="180">
+      <el-table-column align="right" width="160">
         <template #header>
           <el-input v-model="search" size="mini" placeholder="Filter keywords"/>
         </template>
@@ -29,7 +32,7 @@
             @click="handleDelete(scope.row.modelId)">Delete</el-button>
         </template>
       </el-table-column>
-      <el-table-column align="right" width="70">
+      <el-table-column align="left" width="65">
         <template #header>
           <el-button size="mini" type="success"
             @click="()=> this.$router.push('/allsystems/update')" >Add</el-button>
@@ -72,7 +75,8 @@ export default {
           HostType: row.HostType,
           HostName: row.HostName,
           IPadd: row.IPadd,
-          Description: row.Description
+          Description: row.Description,
+          StatusInfo: row.statusInfo
         }
       });
     },
@@ -97,7 +101,7 @@ export default {
     },
     //表格单元格合并
     arraySpanMethod({ columnIndex }) {
-      if (columnIndex === 5) {
+      if (columnIndex === 6) {
         return [1, 2];
       }
     },

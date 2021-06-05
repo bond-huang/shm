@@ -25,7 +25,7 @@
           <el-menu-item index="2-1" @click="openPage('/allsystems')">
             All Systems
           </el-menu-item>
-          <el-menu-item index="2-2" @click="openPage('/modeller')">
+          <el-menu-item index="2-2" @click="openPage('/allsystems')">
             System Class
           </el-menu-item>
       </el-menu-item-group>

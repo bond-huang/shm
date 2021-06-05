@@ -18,7 +18,7 @@ const routes = [{
       component: Login,
       name: 'login',
       meta: {
-          title: '登录'
+          title: 'login'
       }
   }]
 }, {
@@ -30,7 +30,7 @@ const routes = [{
       component: Dashboard,
       name: 'dashboard',
       meta: {
-          title: '首页'
+          title: 'home'
       }
   }]
 },
@@ -87,7 +87,6 @@ const routes = [{
     }]
   },
 ]
-
 
 const router = createRouter({
   history: createWebHashHistory(),

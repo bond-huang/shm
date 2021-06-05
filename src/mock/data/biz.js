@@ -9,6 +9,7 @@ const modeller = {
                 HostName: "AIXtest1",
                 IPadd: "192.168.100.100",
                 Description: "IBM AIX test system",
+                StatusInfo:"Health",
             },
             {
                 HostId: 2,
@@ -16,6 +17,7 @@ const modeller = {
                 HostName: "AIXtest2",
                 IPadd: "192.168.100.101",
                 Description: "IBM AIX test system",
+                StatusInfo:"Warning",
             },
             {
                 HostId: 3,
@@ -23,6 +25,7 @@ const modeller = {
                 HostName: "AIXtest3",
                 IPadd: "192.168.100.102",
                 Description: "IBM AIX test system",
+                StatusInfo:"Health"
             },
             {
                 HostId: 4,
@@ -30,6 +33,7 @@ const modeller = {
                 HostName: "AIXtest4",
                 IPadd: "192.168.100.103",
                 Description: "IBM AIX test system",
+                StatusInfo:"Severe"
             },
             {
                 HostId: 5,
@@ -37,6 +41,7 @@ const modeller = {
                 HostName: "AIXtest5",
                 IPadd: "192.168.100.104",
                 Description: "IBM AIX test system",
+                StatusInfo:"Health"
             },
             {
                 HostId: 6,
@@ -44,6 +49,7 @@ const modeller = {
                 HostName: "AIXtest6",
                 IPadd: "192.168.100.105",
                 Description: "IBM AIX test system",
+                StatusInfo:"Health"
             },
             {
                 HostId: 7,
@@ -51,6 +57,7 @@ const modeller = {
                 HostName: "AIXtest7",
                 IPadd: "192.168.100.106",
                 Description: "IBM AIX test system",
+                StatusInfo:"Health"
             },
             {
                 HostId: 8,
@@ -58,6 +65,7 @@ const modeller = {
                 HostName: "Linuxtest1",
                 IPadd: "192.168.100.107",
                 Description: "Red Hat Enterprise Linux",
+                StatusInfo:"Health"
             },
             {
                 HostId: 9,
@@ -65,6 +73,7 @@ const modeller = {
                 HostName: "Linuxtest2",
                 IPadd: "192.168.100.108",
                 Description: "Red Hat Enterprise Linux",
+                StatusInfo:"Health"
             },
             {
                 HostId: 10,
@@ -72,6 +81,7 @@ const modeller = {
                 HostName: "Linuxtest3",
                 IPadd: "192.168.100.109",
                 Description: "Red Hat Enterprise Linux",
+                StatusInfo:"Health"
             },
             {
                 HostId: 11,
@@ -79,6 +89,7 @@ const modeller = {
                 HostName: "Linuxtest4",
                 IPadd: "192.168.100.110",
                 Description: "Red Hat Enterprise Linux",
+                StatusInfo:"Health"
             },
             {
                 HostId: 12,
@@ -86,6 +97,7 @@ const modeller = {
                 HostName: "Linuxtest5",
                 IPadd: "192.168.100.111",
                 Description: "Red Hat Enterprise Linux",
+                StatusInfo:"Health"
             },]
         }
     },
