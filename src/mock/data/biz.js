@@ -1,4 +1,4 @@
-const modeller = {
+const hostdata = {
     'GET /allsystems': {
         statusCode: "200", statusMessage: "succcess", data: {
             total: 12,
@@ -101,6 +101,14 @@ const modeller = {
             },]
         }
     },
+    'GET /statistics': {
+        statusCode: "200", statusMessage: "succcess", data: {
+            allHosts: 100,
+            healthHosts: 73,
+            warningHosts: 15,
+            severeHosts:2,
+        }
+    },
 }
 
-export default modeller;
+export default hostdata;

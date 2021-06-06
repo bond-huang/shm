@@ -33,7 +33,7 @@ const menu = {
             menuId: "1-1-1",
             menuType: 2,
             menuName: 'AIXtest1',
-            path: '/allsystems',
+            path: '/aixsystems/AIXtest1',
           },
           {
             menuId: "1-1-2",

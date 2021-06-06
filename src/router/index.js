@@ -9,6 +9,8 @@ import Gump from '@/views/Gump.vue'
 import Allsystems from '@/views/allsystems/AllSystems'
 import HostUpdate from '@/views/allsystems/HostUpdate'
 
+import AIXbase from '@/views/hostpage/AIXbase'
+
 const routes = [{
   path: '',
   component: EmptyLayout,
@@ -81,6 +83,34 @@ const routes = [{
                 component: HostUpdate,
                 meta: {
                     title: 'Update Host',
+                }
+            },
+        ]
+    }]
+  },
+  {
+    path: '/aixsystems',
+    component: BaseLayout,
+    children: [{
+        path: '/aixsystems',
+        component: Allsystems,
+        name: 'aixsystems',
+        meta: {
+            title: 'AIX Systems'
+        }
+    },
+    {
+        path: '/aixsystems',
+        component: EmptyLayout,
+        meta: {
+            title: 'AIX Systems'
+        }, children: [
+            {
+                path: 'AIXtest1',
+                name: 'AIXtest1',
+                component: AIXbase,
+                meta: {
+                    title: 'AIXtest1',
                 }
             },
         ]

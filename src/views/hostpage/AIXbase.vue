@@ -7,7 +7,9 @@
   :width="200"
   :status="cpuStatus"> 
   <template #default="{ percentage }">
-    <span class="percentage-value">{{ percentage }}%</span>
+    <span class="percentage-value">
+      <p class="percentage-p">{{ percentage }}%</p>
+    </span>
     <span class="percentage-label">CPU</span>
   </template>
 </el-progress>
@@ -18,7 +20,9 @@
   :width="200"
   :status="memStatus">
   <template #default="{ percentage }">
-    <span class="percentage-value">{{ percentage }}%</span>
+    <span class="percentage-value">
+      <p class="percentage-p">{{ percentage }}%</p>
+    </span>
     <span class="percentage-label">Memory</span>
   </template>
 </el-progress>
@@ -29,7 +33,9 @@
   :width="200"
   :status="psStatus">
   <template #default="{ percentage }">
-    <span class="percentage-value">{{ percentage }}%</span>
+    <span class="percentage-value">
+      <p class="percentage-p">{{ percentage }}%</p>
+    </span>
     <span class="percentage-label">PageSpace</span>
   </template>
 </el-progress>
@@ -39,12 +45,12 @@
 
 <script>
 export default {
-  name: "dashboard",
+  name: "AIXbase",
   data() {
     return {
-      cpuPercentage: 43,
+      cpuPercentage: 80,
       memPercentage: 73,
-      psPercentage: 90,
+      psPercentage: 19,
       cpuStatus: "success",
       memStatus: "success",
       psStatus: "success",
@@ -89,3 +95,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.percentage-p {
+  font-size: 50px;
+}
+</style>

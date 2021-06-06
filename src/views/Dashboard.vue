@@ -5,7 +5,7 @@
       :stroke-width="20"
       :width="200"> 
       <span class="percentage-value">
-        <p class="dashboard-p">{{ allHosts }}</p>
+        <p class="dashboard-p">{{ statisticsList.allHosts }}</p>
       </span>
       <el-tooltip content="All hosts managed by this system" 
         placement="bottom" effect="light">
@@ -19,7 +19,7 @@
       :width="200"
       status="success"> 
       <span class="percentage-value">
-        <p class="dashboard-p">{{ healthHosts }}</p>
+        <p class="dashboard-p">{{ statisticsList.healthHosts }}</p>
       </span>
       <el-tooltip content="The number of hosts in a healthy state" 
         placement="bottom" effect="light">
@@ -33,9 +33,9 @@
       :width="200"
       status="warning">
       <span class="percentage-value">
-        <p class="dashboard-p">{{ warningHosts }}</p>
+        <p class="dashboard-p">{{ statisticsList.warningHosts }}</p>
       </span>
-      <el-tooltip content="The hosts in warning need attention" 
+      <el-tooltip content="The hosts in warning status need attention" 
         placement="bottom" effect="light">
         <span class="percentage-label">Warning</span>
       </el-tooltip>
@@ -47,7 +47,7 @@
       :width="200"
       status="exception">
       <span class="percentage-value">
-        <p class="dashboard-p">{{ severeHosts }}</p>
+        <p class="dashboard-p">{{ statisticsList.severeHosts }}</p>
       </span>
       <el-tooltip content="Severely faulty hosts need to be fixed immediately" 
         placement="bottom" effect="light">
@@ -82,7 +82,11 @@
       &nbsp;&nbsp;
     <el-row>
       <el-col :span="20" :offset="2">
-        <p style="font-size: 40px;">Proactive Operating System Health Check Tool</p>
+        <h2>Proactive Operating System Health Check Tool</h2>
+          <p style="font-size: 20px;">
+            Single Configuration Check;Compliance Check;
+            Monthly PM and Generate Reports Automatically
+          </p>
       </el-col>
     </el-row>
   </div>
@@ -90,15 +94,19 @@
 
 
 <script>
+import { getStatistics } from "@/api/dashboard.js";
+
 export default {
   name: "dashboard",
   data() {
     return {
-      allHosts: 100,
-      healthHosts: 73,
-      warningHosts: 15,
-      severeHosts:2,
+      statisticsList: [],
     }
+  },
+  mounted(){
+    getStatistics().then(resp => {
+      this.statisticsList = resp
+    })
   },
 }
 </script>
