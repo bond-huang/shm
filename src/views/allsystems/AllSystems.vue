@@ -17,7 +17,7 @@
       <el-table-column prop="HostName" label="Host Name"></el-table-column>
       <el-table-column prop="IPadd" label="IP Address"></el-table-column>
       <el-table-column prop="StatusInfo" label="Status"  width="75"></el-table-column>
-      <el-table-column prop="Description" label="Description" width="280">
+      <el-table-column prop="Description" label="Description" width="270">
       </el-table-column>
       <el-table-column align="right" width="160">
         <template #header>
