@@ -62,6 +62,49 @@
       </el-tooltip>
     </template>
   </el-progress>
+  <el-row>
+    <el-col :span="20" :offset="2">
+      <el-divider></el-divider>
+      <el-descriptions class="margin-top" 
+        title="Host Information" 
+        :column="3" 
+        :size="medium" border>
+        <template #extra>
+          <el-button type="success" size="small">Refresh</el-button>
+        </template>
+        <el-descriptions-item>
+          <template #label>
+            <i class="el-icon-star-off"></i>&nbsp;HostType
+          </template>
+          AIX
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="el-icon-user"></i>&nbsp;HostName
+          </template>
+          AIXtest1
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="el-icon-location-outline"></i>&nbsp;IP Address
+          </template>
+          192.168.100.100
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="bi bi-info-circle"></i>&nbsp;StatusInfo
+          </template>
+          Health
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="el-icon-document"></i>&nbsp;Description
+          </template>
+          IBM AIX test system
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
