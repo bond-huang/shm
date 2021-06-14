@@ -56,7 +56,7 @@
       <span class="percentage-value">
         <p class="percentage-p">{{ percentage }}%</p>
       </span>
-      <el-tooltip content="The highest usage rate in the filesystem" 
+      <el-tooltip content="The highest usage rate in the filesystems" 
         placement="bottom" effect="light">
         <span class="percentage-label">FileSystem</span>
       </el-tooltip>
