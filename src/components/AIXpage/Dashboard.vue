@@ -74,9 +74,15 @@
         </template>
         <el-descriptions-item>
           <template #label>
-            <i class="el-icon-star-off"></i>&nbsp;HostType
+            <i class="bi bi-file-font"></i>&nbsp;Machine Type
           </template>
-          AIX
+          9117-570
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="el-icon-star-off"></i>&nbsp;Serial Number
+          </template>
+          65B4D6D
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -92,9 +98,33 @@
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <i class="bi bi-info-circle"></i>&nbsp;StatusInfo
+            <i class="bi bi-door-closed"></i>&nbsp;Platform Firmware Level
           </template>
-          Health
+          SF240_418
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="bi bi-type"></i>&nbsp;AIX Level
+          </template>
+          7100-04-03-1642
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="bi bi-cpu"></i>&nbsp;CPU Entitled Capacity
+          </template>
+          0.20
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <i class="bi bi-files"></i>&nbsp;Memory Size
+          </template>
+          2048MB
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+           <i class="bi bi-file-ppt"></i>&nbsp;Page Space Size
+          </template>
+          1024MB
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
