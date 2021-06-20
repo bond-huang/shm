@@ -11,7 +11,9 @@
         <Standardcheck/>
       </el-tab-pane>
       <el-tab-pane label="PowerHA Check" name="fourth">PowerHA Check</el-tab-pane>
-      <el-tab-pane label="Performance Check" name="fifth">Performance Check</el-tab-pane>
+      <el-tab-pane label="Performance Check" name="fifth">
+        <Performance/>
+      </el-tab-pane>
       <el-tab-pane label="All Items Check" name="sixth">All Items Check</el-tab-pane>
     </el-tabs>
 </div>
@@ -21,6 +23,7 @@
 import Dashboard from "@/components/AIXpage/Dashboard"
 import AutoPM from "@/components/AIXpage/AutoPM"
 import Standardcheck from "@/components/AIXpage/Standardcheck"
+import Performance from "@/components/AIXpage/Performance"
 
 export default {
   name: "AIXbase",
@@ -28,6 +31,7 @@ export default {
     Dashboard,
     AutoPM,
     Standardcheck,
+    Performance,
   },
   data() {
     return {

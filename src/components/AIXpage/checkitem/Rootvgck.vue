@@ -1,31 +1,21 @@
 <template>
+  <div align="right">
+    <el-button size="mini" type="success"
+      @click="()=> this.$router.push()">ReCheck</el-button>
+    <el-button size="mini" type="primary"
+      @click="()=> this.$router.push()">View Output</el-button>
+  </div>
+    &nbsp;
   <el-table
-    :data="tableData"
+    :data="rootInfo"
     border
     :span-method="arraySpanMethod"
     style="width: 100%">
-    <el-table-column label="Check Item" prop="date"></el-table-column>
-    <el-table-column label="Description" prop="name"></el-table-column>
-    <el-table-column align="right" width="180">
-        <template #header>
-        
-        </template>
-          <template #default="scope">
-                <el-button size="mini"
-                @click="reportView(scope.$index, scope.row)">View</el-button>
-                <el-button size="mini" type="primary"
-                @click="reportDownload(scope.row)">Download</el-button>
-                <el-button size="mini" type="danger"
-                @click="reprotDelete(scope.row.modelId)">Delete</el-button>
-              </template>
-        </el-table-column>
-            <el-table-column align="left" width="90">
-              <template #header>
-                <el-button size="mini" type="success"
-                @click="()=> this.$router.push('/allsystems/update')">Refresh</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+    <el-table-column label="Check Item" prop="item"></el-table-column>
+    <el-table-column label="Description" prop="description"></el-table-column>
+    <el-table-column label="Result" prop="result"></el-table-column>
+    <el-table-column label="Mark" prop="result"></el-table-column>
+  </el-table>
 </template>
 
 <script>
@@ -33,19 +23,65 @@
     name: "Rootvgck",
     data() {
       return {
-        tableData: [{
-          date: '2021-06-11',
-          name: 'AIXtest1-210611.html',
-          address: '/AIXtest1-210611.html'
+        rootInfo: [{
+          item: 'Rootvg State',
+          description: 'Must be active',
+          result: 'active',
+          mark:''
         }, {
-          date: '2021-06-12',
-          name: 'AIXtest1-210612.html',
-          address: 'AIXtest1-210612.html'
+          item: 'Rootvg Disk Member',
+          description: 'N/A',
+          result: 'hdisk3/hdisk4',
         }, {
-          date: '2021-06-13',
-          name: 'AIXtest1-210613.html',
-          address: '/AIXtest1-210613.html'
-        }],
+          item: 'Disk Member State',
+          description: 'Must be active',
+          result: 'active',
+        },{
+          item: 'Total PPs',
+          description: 'N/A',
+          result: '1534',
+        },{
+          item: 'Free PPs',
+          description: 'Pay attention if less',
+          result: '674',
+        },{
+          item: 'PP Size',
+          description: 'N/A',
+          result: '128MB',
+        },{
+          item: 'Rootvg disks all on bootlist?',
+          description: 'Please check and add if No',
+          result: 'Yes',
+        },{
+          item: 'Rootvg have a mirror?',
+          description: 'Rootvg mirror except lg_dumplv',
+          result: 'Yes',
+        },{
+          item: 'All LVs are syncd?',
+          description: 'All must be syncd',
+          result: 'Yes',
+        },{
+          item: 'Primary dump LV',
+          description: 'Please set if not lg_dumplv',
+          result: '/dev/lg_dumplv',
+        },{
+          item: 'Forced copy flag',
+          description: 'Please set if not true',
+          result: 'TRUE',
+        },{
+          item: 'Always allow dump',
+          description: 'Please set if not true',
+          result: 'TRUE',
+        },{
+          item: 'Dump compression',
+          description: 'Please set if OFF',
+          result: 'ON',
+        },{
+          item: 'Rootvg last backup time',
+          description: 'Image.data cannot be found',
+          result: 'N/A',
+        },
+        ],
       }
     },
     methods: {
@@ -57,11 +93,6 @@
       },
       reprotDelete(index, row) {
         console.log(index, row);
-      },
-      arraySpanMethod({ columnIndex }) {
-        if (columnIndex === 2) {
-          return [1, 2];
-        }
       },
       handleChange(val) {
         console.log(val);
