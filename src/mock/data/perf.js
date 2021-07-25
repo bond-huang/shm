@@ -39,5 +39,4 @@ const perfdata = {
         ]
     },
 }
-
 export default perfdata;

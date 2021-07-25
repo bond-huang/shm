@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import VChart, { THEME_KEY } from "vue-echarts";
-import { ref, defineComponent } from "vue";
+import VChart, { THEME_KEY } from "vue-echarts"
+import { ref, defineComponent } from "vue"
 
 export default defineComponent({
   name: "MenmoryPerf",
