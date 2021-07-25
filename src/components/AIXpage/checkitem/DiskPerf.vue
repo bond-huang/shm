@@ -7,7 +7,7 @@ import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, defineComponent } from "vue";
 
 export default defineComponent({
-  name: "MenmoryPerf",
+  name: "DiskPerf",
   components: {
     VChart
   },
@@ -23,7 +23,7 @@ export default defineComponent({
         trigger: 'axis'
       },
       legend: {
-        data: ['Physical', 'PageSpace']
+        data: ['hdisk0', 'hdisk1', 'hdisk2', 'hdisk3']
       },
       grid: {
         left: '3%',
@@ -49,18 +49,32 @@ export default defineComponent({
       },
       series: [
         {
-            name: 'Physical',
+            name: 'hdisk0',
+            type: 'line',
+            smooth: true,
+            data: [2.1,2.9,3.1,3.5,3.8,3.5,3.1,2.9,2.7,2.9,2.3,2.1,
+            2.5,2.8,3.1,2.1,2.3,2.1,2.2,2.5,2.1,2.7,2.3,2.9]
+        },
+        {
+            name: 'hdisk1',
+            type: 'line',
+            smooth: true,
+            data: [1.2,1.5,2.9,2.1,3.2,2.9,2.5,1.9,2.4,2.9,2.7,2.9,
+            3.1,3.3,3.7,3.3,2.1,2.4,3.1,2.1,2.4,2.1,2.2,2.6]
+        },
+        {
+            name: 'hdisk2',
+            type: 'line',
+            smooth: true,
+            data: [1.9,1.9,1.8,1.9,1.9,1.5,1.9,1.9,1.9,1.6,1.8,1.9,
+            1.6,1.9,1.8,1.9,1.9,1.2,1.9,1.9,1.8,1.9,1.7,1.9]
+        },
+        {
+            name: 'hdisk3',
             type: 'line',
             smooth: true,
             data: [37.5,61.5,67.2,66.3,55.9,51.3,52.4,53.7,55.2,56.9,53.7,52.2,
             53.2,55.5,57.3,59.1,61.7,61.9,63.1,65.3,66.2,68.1,66.9,63.2]
-        },
-        {
-            name: 'PageSpace',
-            type: 'line',
-            smooth: true,
-            data: [1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,
-            1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9,1.9]
         },
       ]
     });

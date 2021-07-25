@@ -1,6 +1,5 @@
 <template>
   <div class="auth-body">
-    <div class="container">
       <el-form class="form-auth">
         <h3>System Health Management</h3>
         <el-form-item prop="username" label="Username：">
@@ -11,7 +10,6 @@
         </el-form-item>
           <el-button type="primary" @click="loginSubmit">Sign in</el-button>
       </el-form>
-    </div>
   </div>
 </template>
 
@@ -41,11 +39,12 @@ export default {
 
 <style>
 .auth-body {
-  background:url(../assets/background.jpg) repeat center 0px;
+  background:url(../assets/background.jpg) center 0px;
+  background-repeat:round;
   background-size: cover;
   font-family: sans-serif;
-  padding-top: 100px;
-  padding-bottom: 150px;
+  padding-top: 155px;
+  padding-bottom: 160px;
 }
 
 .form-auth {

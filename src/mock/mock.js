@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-const mock_source = ['biz.js', 'sys.js']
+const mock_source = ['biz.js', 'sys.js', 'perf.js']
 
 function load(mock_source) {
     for (let i = 0; i < mock_source.length; i++) {
