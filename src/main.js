@@ -9,7 +9,7 @@ import installElementPlus from './plugins/element'
 import ECharts from 'vue-echarts'
 
 import '@/permission.js'
-import '@/mock/mock.js'
+// import '@/mock/mock.js'  // 已关闭 mock，使用真实后端 API
 
 const app = createApp(App)
 installElementPlus(app)

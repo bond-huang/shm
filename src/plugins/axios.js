@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
-// axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.baseURL = '/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.request.use(config => {
