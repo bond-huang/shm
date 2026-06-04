@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Announcement
+Development of this project will be AI-driven starting June 4, 2026; nearly all future code changes are AI-produced.

@@ -4,7 +4,7 @@
       <Header/>
       <el-container>
         <Aside/>
-        <el-container style="border: 1px solid #eee">
+        <el-container style="border: 1px solid rgba(0, 198, 255, 0.08)">
           <el-main><Content/></el-main>
         </el-container>
       </el-container>
@@ -29,7 +29,7 @@ export default {
 
 <style>
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #f0f2f5;
     color: #333;
     text-align: center;
   }
