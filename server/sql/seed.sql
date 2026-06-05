@@ -2,8 +2,8 @@
 USE shm;
 
 -- 用户数据 (密码: 123456, bcrypt 加密)
-INSERT INTO users (username, password, nickname) VALUES
-('admin', '$2b$10$.zzpE39Zg7Ste1jfeMdCA.35ktDMwZEiUw/0Hij1uvXEGBczyMjyC', 'admin');
+INSERT INTO users (username, password, nickname, role) VALUES
+('admin', '$2b$10$.zzpE39Zg7Ste1jfeMdCA.35ktDMwZEiUw/0Hij1uvXEGBczyMjyC', 'admin', 'admin');
 
 -- 菜单数据
 INSERT INTO menus (menu_id, parent_id, menu_type, menu_name, path, sort_order) VALUES

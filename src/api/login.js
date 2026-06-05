@@ -7,3 +7,12 @@ export function login(username, password){
         password: password
     }))
 }
+
+export function verifyPassword(username, password){
+    return axios.post('/verify-password', {
+        username: username,
+        password: password
+    }, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+}

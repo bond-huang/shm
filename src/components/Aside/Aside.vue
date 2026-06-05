@@ -46,7 +46,7 @@
             </svg>
             <span class="menu-text">All Systems</span>
           </el-menu-item>
-          <el-menu-item index="2-2" @click="openPage('/allsystems')">
+          <el-menu-item index="2-2" @click="openPage('/system-class')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="menu-icon-sm">
               <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
             </svg>
@@ -63,7 +63,7 @@
           <span class="menu-text">Setting</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1">
+          <el-menu-item index="3-1" @click="openPage('/user-settings')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="menu-icon-sm">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
             </svg>

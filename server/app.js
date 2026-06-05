@@ -7,6 +7,7 @@ const menuRoutes = require('./routes/menu');
 const hostsRoutes = require('./routes/hosts');
 const dashboardRoutes = require('./routes/dashboard');
 const perfRoutes = require('./routes/perf');
+const userRoutes = require('./routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use('/api', menuRoutes);
 app.use('/api', hostsRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/api', perfRoutes);
+app.use('/api', userRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {

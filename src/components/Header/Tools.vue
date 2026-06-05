@@ -93,6 +93,7 @@ export default {
     handleCommand(command) {
       switch(command) {
         case "1":
+          this.$router.push('/user-settings');
           break;
         case "2":
           this.logout();

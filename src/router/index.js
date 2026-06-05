@@ -5,11 +5,16 @@ import Dashboard from '@/views/Dashboard'
 import Login from '@/views/Login'
 import Vuehome from '@/views/Vuehome.vue'
 import Gump from '@/views/Gump.vue'
+import UserSettings from '@/views/UserSettings.vue'
+import CategoryList from '@/views/CategoryList.vue'
+import CategoryDetail from '@/views/CategoryDetail.vue'
 
 import Allsystems from '@/views/allsystems/AllSystems'
 import HostUpdate from '@/views/allsystems/HostUpdate'
 
 import AIXbase from '@/views/hostpage/AIXbase'
+import Linuxbase from '@/views/hostpage/Linuxbase'
+import HostDetail from '@/views/hostpage/HostDetail'
 
 const routes = [{
   path: '',
@@ -114,6 +119,82 @@ const routes = [{
                 }
             },
         ]
+    }]
+  },
+  {
+    path: '/linuxsystems',
+    component: BaseLayout,
+    children: [{
+        path: '/linuxsystems',
+        component: Allsystems,
+        name: 'linuxsystems',
+        meta: {
+            title: 'Linux Systems'
+        }
+    },
+    {
+        path: '/linuxsystems',
+        component: EmptyLayout,
+        meta: {
+            title: 'Linux Systems'
+        }, children: [
+            {
+                path: 'Linuxtest1',
+                name: 'Linuxtest1',
+                component: Linuxbase,
+                meta: {
+                    title: 'Linuxtest1',
+                }
+            },
+        ]
+    }]
+  },
+  {
+    path: '/system-class',
+    component: BaseLayout,
+    children: [{
+        path: '/system-class',
+        component: CategoryList,
+        name: 'system-class',
+        meta: {
+            title: 'System Class'
+        }
+    }]
+  },
+  {
+    path: '/system-class/:name',
+    component: BaseLayout,
+    children: [{
+        path: '/system-class/:name',
+        component: CategoryDetail,
+        name: 'category-detail',
+        meta: {
+            title: 'Category Detail'
+        }
+    }]
+  },
+  {
+    path: '/host/:id',
+    component: BaseLayout,
+    children: [{
+        path: '/host/:id',
+        component: HostDetail,
+        name: 'host-detail',
+        meta: {
+            title: 'Host Detail'
+        }
+    }]
+  },
+  {
+    path: '/user-settings',
+    component: BaseLayout,
+    children: [{
+        path: '/user-settings',
+        component: UserSettings,
+        name: 'user-settings',
+        meta: {
+            title: 'User Settings'
+        }
     }]
   },
 ]
