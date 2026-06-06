@@ -4,8 +4,8 @@ export function getModeller() {
     return axios.get('/modeller')
 }
 
-export function getSystems(page = 1, pageSize = 10) {
-    return axios.get('/allsystems', { params: { page, pageSize } })
+export function getSystems(page = 1, pageSize = 10, status = '') {
+    return axios.get('/allsystems', { params: { page, pageSize, status } })
 }
 
 export function addHost(param) {
@@ -51,4 +51,33 @@ export function getCategories() {
 
 export function getCategoryHosts(categoryName) {
     return axios.get(`/categories/${encodeURIComponent(categoryName)}/hosts`)
+}
+
+export function getDataCenters() {
+    return axios.get('/datacenters')
+}
+
+export function getDataCenterHosts(dcName) {
+    return axios.get(`/datacenters/${encodeURIComponent(dcName)}/hosts`)
+}
+
+export function getHostTypes() {
+    return axios.get('/hosttypes')
+}
+
+export function getHostTypeHosts(typeName) {
+    return axios.get(`/hosttypes/${encodeURIComponent(typeName)}/hosts`)
+}
+
+export function saveSshCredentials(hostId, sshUser, sshPassword) {
+    return axios.put(`/hosts/${hostId}/ssh`, {
+        ssh_user: sshUser,
+        ssh_password: sshPassword
+    }, {
+        headers: { "Content-Type": "application/json" }
+    })
+}
+
+export function getSshCredentials(hostId) {
+    return axios.get(`/hosts/${hostId}/ssh`)
 }

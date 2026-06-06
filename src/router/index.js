@@ -6,6 +6,11 @@ import Login from '@/views/Login'
 import Vuehome from '@/views/Vuehome.vue'
 import Gump from '@/views/Gump.vue'
 import UserSettings from '@/views/UserSettings.vue'
+import ScriptLibrary from '@/views/ScriptLibrary.vue'
+import ScriptClass from '@/views/ScriptClass.vue'
+import AllTool from '@/views/AllTool.vue'
+import ToolClass from '@/views/ToolClass.vue'
+import AIAssistant from '@/views/AIAssistant.vue'
 import CategoryList from '@/views/CategoryList.vue'
 import CategoryDetail from '@/views/CategoryDetail.vue'
 
@@ -194,6 +199,66 @@ const routes = [{
         name: 'user-settings',
         meta: {
             title: 'User Settings'
+        }
+    }]
+  },
+  {
+    path: '/ai-assistant',
+    component: BaseLayout,
+    children: [{
+        path: '/ai-assistant',
+        component: AIAssistant,
+        name: 'ai-assistant',
+        meta: {
+            title: 'AI Assistant'
+        }
+    }]
+  },
+  {
+    path: '/analytical-tools',
+    component: BaseLayout,
+    children: [{
+        path: '/analytical-tools',
+        component: AllTool,
+        name: 'analytical-tools',
+        meta: {
+            title: 'Analytical Tools'
+        }
+    }]
+  },
+  {
+    path: '/tool-class',
+    component: BaseLayout,
+    children: [{
+        path: '/tool-class',
+        component: ToolClass,
+        name: 'tool-class',
+        meta: {
+            title: 'Tool Class'
+        }
+    }]
+  },
+  {
+    path: '/script-library',
+    component: BaseLayout,
+    children: [{
+        path: '/script-library',
+        component: ScriptLibrary,
+        name: 'script-library',
+        meta: {
+            title: 'Script Library'
+        }
+    }]
+  },
+  {
+    path: '/script-class',
+    component: BaseLayout,
+    children: [{
+        path: '/script-class',
+        component: ScriptClass,
+        name: 'script-class',
+        meta: {
+            title: 'Script Class'
         }
     }]
   },

@@ -9,28 +9,44 @@
     || data.BusinessName.toLowerCase().includes(search.toLowerCase())
     || data.DataCenter.toLowerCase().includes(search.toLowerCase()))"
     v-loading="loading"
-    height="390"
     element-loading-text="Loading..."
-    element-loading-spinner="el-icon-loading">
+    element-loading-spinner="el-icon-loading"
+    :header-cell-style="{ background: '#f8fafc', color: '#334155', fontWeight: '600' }"
+    :row-style="{ cursor: 'pointer' }"
+    @row-click="viewHost">
       <el-table-column prop="HostType" label="HostType" width="90"></el-table-column>
       <el-table-column prop="HostName" label="HostName" width="110"></el-table-column>
       <el-table-column prop="IPadd" label="IP Addr" width="130"></el-table-column>
-      <el-table-column prop="StatusInfo" label="Status" width="80"></el-table-column>
+      <el-table-column prop="StatusInfo" label="Status" width="110">
+        <template #default="{ row }">
+          <span class="status-badge" :class="row.StatusInfo.toLowerCase()">
+            <i :class="getStatusIcon(row.StatusInfo)"></i>
+            {{ row.StatusInfo }}
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column prop="Category" label="Category" width="100"></el-table-column>
       <el-table-column prop="BusinessName" label="Business Name" width="150"></el-table-column>
-      <el-table-column prop="DataCenter" label="Data Center" width="120"></el-table-column>
+      <el-table-column prop="DataCenter" label="Data Center" width="120">
+        <template #default="{ row }">
+          <span class="dc-tag"><i class="bi bi-geo-alt"></i> {{ row.DataCenter }}</span>
+        </template>
+      </el-table-column>
       <el-table-column align="right" min-width="220">
         <template #header>
           <div style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
             <el-input v-model="search" size="mini" placeholder="Filter keywords" style="width: 140px;" />
-            <el-button size="mini" type="success" @click="()=> this.$router.push('/allsystems/update')">Add</el-button>
+            <el-button size="mini" type="success" @click="$router.push('/allsystems/update')">Add</el-button>
           </div>
         </template>
         <template #default="scope">
           <div style="display: flex; justify-content: flex-end; gap: 2px;">
-            <el-button size="mini" style="padding: 4px 8px; font-size: 12px;" @click="viewHost(scope.row)">View</el-button>
-            <el-button size="mini" style="padding: 4px 8px; font-size: 12px;" @click="toHostEdit(scope.row)">Edit</el-button>
-            <el-button size="mini" type="danger" style="padding: 4px 8px; font-size: 12px;" @click="openDeleteDialog(scope.row)">Delete</el-button>
+            <el-button size="mini" style="padding: 4px 8px; font-size: 12px;" @click.stop="toHostEdit(scope.row)">
+              <i class="bi bi-pencil-square"></i> Edit
+            </el-button>
+            <el-button size="mini" type="danger" style="padding: 4px 8px; font-size: 12px;" @click.stop="openDeleteDialog(scope.row)">
+              <i class="bi bi-trash3"></i> Delete
+            </el-button>
           </div>
         </template>
       </el-table-column>
@@ -144,12 +160,15 @@ export default {
         params: { id: row.HostId }
       });
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    getStatusIcon(status) {
+      if (status === 'Severe') return 'bi bi-x-octagon-fill';
+      if (status === 'Warning') return 'bi bi-exclamation-triangle-fill';
+      return 'bi bi-check-circle-fill';
     },
     loadData() {
       this.loading = true;
-      getSystems(this.pageIndex, this.pageSize).then(response => {
+      const status = this.$route.query.status || '';
+      getSystems(this.pageIndex, this.pageSize, status).then(response => {
         this.allsysList = response.content;
         this.pageTotal = response.total;
         this.loading = false;
@@ -159,5 +178,56 @@ export default {
   mounted() {
     this.loadData();
   },
+  watch: {
+    '$route.query.status'() {
+      this.pageIndex = 1;
+      this.loadData();
+    }
+  },
 };
 </script>
+
+<style scoped>
+/* Status 标签 */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge i {
+  font-size: 11px;
+}
+
+.status-badge.health {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.status-badge.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.status-badge.severe {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+/* DataCenter 标签 */
+.dc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.dc-tag i {
+  color: #0ea5e9;
+}
+</style>

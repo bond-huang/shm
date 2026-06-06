@@ -61,21 +61,21 @@
     </el-row>
     <el-row>
       <el-col :span="20" :offset="2">
-        <el-tooltip content="View list of all managed hosts" 
+        <el-tooltip content="View list of all managed hosts"
           placement="bottom" effect="light">
-          <el-button type="primary">All Hosts List</el-button>
+          <el-button type="primary" @click="$router.push('/allsystems')">All Hosts List</el-button>
         </el-tooltip>
-        <el-tooltip content="View list of all healthy hosts" 
+        <el-tooltip content="View list of all healthy hosts"
           placement="bottom" effect="light">
-          <el-button type="success">Healthy Hosts</el-button>
+          <el-button type="success" @click="$router.push({ path: '/allsystems', query: { status: 'Health' } })">Healthy Hosts</el-button>
         </el-tooltip>
-        <el-tooltip content="View list of the hosts in Warning status" 
+        <el-tooltip content="View list of the hosts in Warning status"
           placement="bottom" effect="light">
-          <el-button type="warning">Warning Hosts</el-button>
+          <el-button type="warning" @click="$router.push({ path: '/allsystems', query: { status: 'Warning' } })">Warning Hosts</el-button>
         </el-tooltip>
-        <el-tooltip content="View list of the hosts in Severe status" 
+        <el-tooltip content="View list of the hosts in Severe status"
           placement="bottom" effect="light">
-          <el-button type="danger">Severe Hosts</el-button>
+          <el-button type="danger" @click="$router.push({ path: '/allsystems', query: { status: 'Severe' } })">Severe Hosts</el-button>
         </el-tooltip>
       </el-col>
     </el-row>

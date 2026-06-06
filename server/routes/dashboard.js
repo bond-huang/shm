@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/statistics', async (req, res) => {
   try {
     const [rows] = await pool.query(
-      'SELECT status_info, COUNT(*) as count FROM hosts GROUP BY status_info'
+      'SELECT status, COUNT(*) as count FROM hosts GROUP BY status'
     );
 
     const stats = {
@@ -19,9 +19,9 @@ router.get('/statistics', async (req, res) => {
 
     rows.forEach(row => {
       stats.allHosts += row.count;
-      if (row.status_info === 'Health') stats.healthHosts = row.count;
-      if (row.status_info === 'Warning') stats.warningHosts = row.count;
-      if (row.status_info === 'Severe') stats.severeHosts = row.count;
+      if (row.status === 'Health') stats.healthHosts = row.count;
+      if (row.status === 'Warning') stats.warningHosts = row.count;
+      if (row.status === 'Severe') stats.severeHosts = row.count;
     });
 
     res.json({

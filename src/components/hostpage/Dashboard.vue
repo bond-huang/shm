@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dashboard-container">
     <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
       <div v-for="gauge in gauges" :key="gauge.label" style="text-align: center;">
         <el-progress type="dashboard"
@@ -20,23 +20,55 @@
     </div>
 
     <el-row style="margin-top: 20px;">
-      <el-col :span="20" :offset="2">
+      <el-col :span="22" :offset="1">
         <el-divider></el-divider>
-        <el-descriptions class="margin-top" title="Host Information" :column="3" :size="medium" border>
-          <template #extra>
-            <el-button type="success" size="small" @click="refresh">Refresh</el-button>
-          </template>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h4 style="margin: 0;">Host Information</h4>
+          <div>
+            <el-button type="primary" size="small" @click="openAuthDialog">
+              <i class="bi bi-shield-lock"></i> Authentication
+            </el-button>
+            <el-button type="success" size="small" @click="refresh">
+              <i class="bi bi-arrow-clockwise"></i> Refresh
+            </el-button>
+          </div>
+        </div>
+        <el-descriptions :column="3" :size="'medium'" border>
           <el-descriptions-item>
-            <template #label><i class="bi bi-pc-display"></i>&nbsp;Host Type</template>
-            {{ host.HostType }}
+            <template #label><i class="bi bi-type"></i>&nbsp;OS Version</template>
+            {{ sysInfo.osVersion || '-' }}
           </el-descriptions-item>
           <el-descriptions-item>
-            <template #label><i class="el-icon-user"></i>&nbsp;Host Name</template>
-            {{ host.HostName }}
+            <template #label><i class="bi bi-cpu"></i>&nbsp;Kernel</template>
+            {{ sysInfo.kernel || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="el-icon-user"></i>&nbsp;HostName</template>
+            {{ sysInfo.hostname || host.HostName }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template #label><i class="el-icon-location-outline"></i>&nbsp;IP Address</template>
             {{ host.IPadd }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-door-closed"></i>&nbsp;Architecture</template>
+            {{ sysInfo.architecture || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-hdd"></i>&nbsp;SELinux</template>
+            {{ sysInfo.selinux || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-cpu"></i>&nbsp;CPU Cores</template>
+            {{ sysInfo.cpuCores || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-files"></i>&nbsp;Memory Size</template>
+            {{ sysInfo.memTotal ? sysInfo.memTotal + ' MB' : '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-file-ppt"></i>&nbsp;Swap Size</template>
+            {{ sysInfo.swapTotal ? sysInfo.swapTotal + ' MB' : '-' }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template #label><i class="bi bi-info-circle"></i>&nbsp;Status</template>
@@ -47,20 +79,54 @@
             {{ host.Category || '-' }}
           </el-descriptions-item>
           <el-descriptions-item>
-            <template #label><i class="bi bi-building"></i>&nbsp;Business Name</template>
-            {{ host.BusinessName || '-' }}
+            <template #label><i class="bi bi-building"></i>&nbsp;Data Center</template>
+            {{ host.DataCenter || '-' }}
           </el-descriptions-item>
           <el-descriptions-item>
-            <template #label><i class="bi bi-geo-alt"></i>&nbsp;Data Center</template>
-            {{ host.DataCenter || '-' }}
+            <template #label><i class="bi bi-clock"></i>&nbsp;Uptime</template>
+            {{ sysInfo.uptime || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="bi bi-speedometer"></i>&nbsp;Load Average</template>
+            {{ sysInfo.loadAvg || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label><i class="el-icon-location-outline"></i>&nbsp;Description</template>
+            {{ host.BusinessName || '-' }}
           </el-descriptions-item>
         </el-descriptions>
       </el-col>
     </el-row>
+
+    <!-- SSH 认证弹窗 -->
+    <el-dialog v-model="authDialogVisible" title="SSH Authentication" width="420px" :close-on-click-modal="false">
+      <p style="margin: 0 0 16px; color: #909399; font-size: 13px;">
+        Configure SSH credentials for <b>{{ host.HostName }}</b> ({{ host.IPadd }})
+      </p>
+      <el-form :model="authForm" :rules="authRules" ref="authFormRef" label-width="90px" size="small">
+        <el-form-item label="Username" prop="ssh_user">
+          <el-input v-model="authForm.ssh_user" placeholder="e.g. root" />
+        </el-form-item>
+        <el-form-item label="Password" prop="ssh_password">
+          <el-input v-model="authForm.ssh_password" type="password" show-password placeholder="SSH password" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button size="small" @click="testConnection" :loading="testLoading">
+          <i class="bi bi-lightning"></i> Test Connection
+        </el-button>
+        <el-button size="small" @click="authDialogVisible = false">Cancel</el-button>
+        <el-button size="small" type="primary" @click="saveAuth" :loading="saveLoading">Save</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { saveSshCredentials, getSshCredentials } from "@/api/demo.js"
+import { getRealtimePerf } from "@/api/perf.js"
+import { ElMessage, ElLoading } from 'element-plus'
+
 export default {
   name: "HostDashboard",
   props: {
@@ -76,7 +142,30 @@ export default {
         { label: 'Memory', value: 62, status: 'success', tooltip: 'Physical memory usage rate' },
         { label: 'Swap', value: 8, status: 'success', tooltip: 'Swap usage rate' },
         { label: 'FileSystem', value: 71, status: 'success', tooltip: 'The highest usage rate in the filesystems' }
-      ]
+      ],
+      sysInfo: {
+        osVersion: '',
+        kernel: '',
+        hostname: '',
+        architecture: '',
+        selinux: '',
+        cpuCores: '',
+        memTotal: '',
+        swapTotal: '',
+        uptime: '',
+        loadAvg: ''
+      },
+      authDialogVisible: false,
+      testLoading: false,
+      saveLoading: false,
+      authForm: {
+        ssh_user: '',
+        ssh_password: ''
+      },
+      authRules: {
+        ssh_user: [{ required: true, message: 'Please enter username', trigger: 'blur' }],
+        ssh_password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
+      }
     }
   },
   computed: {
@@ -92,12 +181,11 @@ export default {
   },
   methods: {
     updateGauges() {
-      // 根据主机类型设置不同的默认值
       if (this.host.HostType === 'AIX') {
-        this.gauges[0].value = 80; // CPU
-        this.gauges[1].value = 73; // Memory
-        this.gauges[2].value = 19; // Swap/PageSpace
-        this.gauges[3].value = 95; // FileSystem
+        this.gauges[0].value = 80;
+        this.gauges[1].value = 73;
+        this.gauges[2].value = 19;
+        this.gauges[3].value = 95;
       } else if (this.host.HostType === 'Linux') {
         this.gauges[0].value = 45;
         this.gauges[1].value = 62;
@@ -105,16 +193,115 @@ export default {
         this.gauges[3].value = 71;
       }
 
-      // 更新状态
       this.gauges.forEach(gauge => {
         if (gauge.value >= 80) gauge.status = 'exception';
         else if (gauge.value >= 60) gauge.status = 'warning';
         else gauge.status = 'success';
       });
     },
-    refresh() {
-      this.updateGauges();
-      this.$message.success('Refreshed');
+    async refresh() {
+      if (!this.host.HostId) return;
+
+      const loading = ElLoading.service({ target: '.dashboard-container', text: 'Fetching data...' });
+      try {
+        const res = await getRealtimePerf(this.host.HostId);
+        if (res && res.cpu) {
+          // CPU
+          const cpuUsed = parseFloat((res.cpu.user + res.cpu.system + res.cpu.iowait).toFixed(1));
+          this.gauges[0].value = cpuUsed;
+
+          // Memory
+          if (res.memory) {
+            this.gauges[1].value = res.memory.usagePercent || 0;
+            const swapPercent = res.memory.swapTotal > 0
+              ? Math.round((res.memory.swapUsed / res.memory.swapTotal) * 100)
+              : 0;
+            this.gauges[2].value = swapPercent;
+          }
+
+          // FileSystem
+          if (res.disk && res.disk.length > 0) {
+            const maxUsage = Math.max(...res.disk.map(d => d.usePercent));
+            this.gauges[3].value = maxUsage;
+          }
+
+          // 状态颜色
+          this.gauges.forEach(gauge => {
+            if (gauge.value >= 80) gauge.status = 'exception';
+            else if (gauge.value >= 60) gauge.status = 'warning';
+            else gauge.status = 'success';
+          });
+
+          // 系统信息
+          if (res.systemInfo) {
+            this.sysInfo = {
+              osVersion: res.systemInfo.osVersion || '',
+              kernel: res.systemInfo.kernel || '',
+              hostname: res.hostname || '',
+              architecture: res.systemInfo.architecture || '',
+              selinux: res.systemInfo.selinux || '',
+              cpuCores: res.systemInfo.cpuCores || '',
+              memTotal: res.systemInfo.memTotal || '',
+              swapTotal: res.systemInfo.swapTotal || '',
+              uptime: res.uptime || '',
+              loadAvg: res.loadAvg ? `${res.loadAvg['1min']} / ${res.loadAvg['5min']} / ${res.loadAvg['15min']}` : ''
+            };
+          }
+
+          ElMessage.success(`Refreshed — ${res.hostname}`);
+        } else {
+          ElMessage.warning(res?.statusMessage || 'No data returned');
+        }
+      } catch (e) {
+        ElMessage.error('Failed to fetch data');
+      }
+      loading.close();
+    },
+    async openAuthDialog() {
+      this.authDialogVisible = true;
+      try {
+        const res = await getSshCredentials(this.host.HostId);
+        if (res) {
+          this.authForm.ssh_user = res.ssh_user || '';
+          this.authForm.ssh_password = '';
+        }
+      } catch (e) {
+        // 忽略
+      }
+    },
+    async testConnection() {
+      try {
+        await this.$refs.authFormRef.validate();
+      } catch { return; }
+
+      this.testLoading = true;
+      try {
+        await saveSshCredentials(this.host.HostId, this.authForm.ssh_user, this.authForm.ssh_password);
+        const res = await getRealtimePerf(this.host.HostId);
+        if (res && res.hostname) {
+          ElMessage.success(`Connected! Hostname: ${res.hostname}`);
+        } else {
+          ElMessage.error(res?.statusMessage || 'Connection failed');
+        }
+      } catch (e) {
+        ElMessage.error('Connection failed');
+      }
+      this.testLoading = false;
+    },
+    async saveAuth() {
+      try {
+        await this.$refs.authFormRef.validate();
+      } catch { return; }
+
+      this.saveLoading = true;
+      try {
+        await saveSshCredentials(this.host.HostId, this.authForm.ssh_user, this.authForm.ssh_password);
+        ElMessage.success('SSH credentials saved');
+        this.authDialogVisible = false;
+      } catch (e) {
+        ElMessage.error('Save failed');
+      }
+      this.saveLoading = false;
     }
   }
 }

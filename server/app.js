@@ -7,7 +7,11 @@ const menuRoutes = require('./routes/menu');
 const hostsRoutes = require('./routes/hosts');
 const dashboardRoutes = require('./routes/dashboard');
 const perfRoutes = require('./routes/perf');
+const perfRealtimeRoutes = require('./routes/perf-realtime');
+const perfHistoryRoutes = require('./routes/perf-history');
+const reportRoutes = require('./routes/reports');
 const userRoutes = require('./routes/users');
+const scheduler = require('./services/scheduler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +27,9 @@ app.use('/api', menuRoutes);
 app.use('/api', hostsRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/api', perfRoutes);
+app.use('/api', perfRealtimeRoutes);
+app.use('/api', perfHistoryRoutes);
+app.use('/api', reportRoutes);
 app.use('/api', userRoutes);
 
 // 健康检查
@@ -32,6 +39,8 @@ app.get('/api/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`SHM Server running on http://localhost:${PORT}`);
+  // 启动定时性能采集（每 10 分钟）
+  scheduler.start();
 });
 
 module.exports = app;
