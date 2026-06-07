@@ -1,14 +1,7 @@
 const { Client } = require('ssh2');
 
 /**
- * 通过 SSH 在远程主机上执行命令
- * @param {string} host - IP 地址
- * @param {number} port - SSH 端口，默认 22
- * @param {string} user - 用户名
- * @param {string} password - 密码
- * @param {string} cmd - 要执行的命令
- * @param {number} timeout - 命令超时毫秒数，默认 10000
- * @returns {Promise<string>} 命令输出
+ * 通过 SSH 在远程主机上执行单个命令
  */
 function execCommand(host, port, user, password, cmd, timeout = 10000) {
   return new Promise((resolve, reject) => {
@@ -32,7 +25,6 @@ function execCommand(host, port, user, password, cmd, timeout = 10000) {
           clearTimeout(timer);
           conn.end();
           if (code !== 0 && stderr) {
-            // 部分命令退出码非 0 但仍有有效输出，不直接报错
             console.warn(`SSH cmd exit ${code}: ${stderr.trim()}`);
           }
           resolve(stdout);
@@ -62,4 +54,75 @@ function execCommand(host, port, user, password, cmd, timeout = 10000) {
   });
 }
 
-module.exports = { execCommand };
+/**
+ * 通过单个 SSH 连接顺序执行多个命令（避免并发连接过多被拒绝）
+ * @param {string} host
+ * @param {number} port
+ * @param {string} user
+ * @param {string} password
+ * @param {string[]} cmds - 命令数组
+ * @param {number} timeout - 每条命令超时
+ * @returns {Promise<string[]>} 每条命令的输出
+ */
+function execCommands(host, port, user, password, cmds, timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    const conn = new Client();
+    const results = [];
+    let index = 0;
+
+    conn.on('ready', () => {
+      function runNext() {
+        if (index >= cmds.length) {
+          conn.end();
+          return resolve(results);
+        }
+
+        const cmd = cmds[index];
+        conn.exec(cmd, { pty: false }, (err, stream) => {
+          if (err) {
+            results.push('');
+            index++;
+            return runNext();
+          }
+
+          let stdout = '';
+          let timer;
+
+          stream.on('data', (data) => { stdout += data.toString(); });
+          stream.stderr.on('data', () => {});
+
+          stream.on('close', () => {
+            clearTimeout(timer);
+            results.push(stdout);
+            index++;
+            runNext();
+          });
+
+          timer = setTimeout(() => {
+            stream.close();
+            results.push('');
+            index++;
+            runNext();
+          }, timeout);
+        });
+      }
+
+      runNext();
+    });
+
+    conn.on('error', (err) => {
+      reject(new Error(`SSH connection error: ${err.message}`));
+    });
+
+    conn.connect({
+      host,
+      port: port || 22,
+      username: user,
+      password,
+      readyTimeout: 5000,
+      keepaliveInterval: 0
+    });
+  });
+}
+
+module.exports = { execCommand, execCommands };

@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const pool = require('../config/db');
-const { INSPECTION_SCRIPT, runInspection } = require('../services/inspection');
+const { SCRIPT_NAME, INSPECTION_SCRIPT, runInspection } = require('../services/inspection');
 const { generateReport } = require('../services/reportGenerator');
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/reports/script', (req, res) => {
   res.json({
     statusCode: '200',
     statusMessage: 'success',
-    data: { script: INSPECTION_SCRIPT }
+    data: { name: SCRIPT_NAME, script: INSPECTION_SCRIPT }
   });
 });
 
@@ -61,10 +61,10 @@ router.post('/reports/generate/:hostId', async (req, res) => {
       fs.mkdirSync(reportDir, { recursive: true });
     }
 
-    // 文件名: {hostname}_{YYYYMMDD_HHmmss}.html
+    // 文件名: {hostname}_{IP}_{YYYYMMDD_HHmmss}.html
     const now = new Date();
     const ts = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
-    const fileName = `${hostname}_${ts}.html`;
+    const fileName = `${hostname}_${host.ip_address}_${ts}.html`;
     const filePath = path.join(reportDir, fileName);
 
     fs.writeFileSync(filePath, html, 'utf-8');

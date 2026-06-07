@@ -10,6 +10,8 @@ const perfRoutes = require('./routes/perf');
 const perfRealtimeRoutes = require('./routes/perf-realtime');
 const perfHistoryRoutes = require('./routes/perf-history');
 const reportRoutes = require('./routes/reports');
+const scriptRoutes = require('./routes/scripts');
+const analysisRoutes = require('./routes/analysis');
 const userRoutes = require('./routes/users');
 const scheduler = require('./services/scheduler');
 
@@ -30,6 +32,8 @@ app.use('/api', perfRoutes);
 app.use('/api', perfRealtimeRoutes);
 app.use('/api', perfHistoryRoutes);
 app.use('/api', reportRoutes);
+app.use('/api', scriptRoutes);
+app.use('/api', analysisRoutes);
 app.use('/api', userRoutes);
 
 // 健康检查

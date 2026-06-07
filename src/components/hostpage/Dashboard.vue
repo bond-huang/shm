@@ -177,7 +177,12 @@ export default {
     }
   },
   mounted() {
-    this.updateGauges();
+    this.loadCachedData();
+  },
+  watch: {
+    'host.HostId'(val) {
+      if (val) this.loadCachedData();
+    }
   },
   methods: {
     updateGauges() {
@@ -198,6 +203,33 @@ export default {
         else if (gauge.value >= 60) gauge.status = 'warning';
         else gauge.status = 'success';
       });
+    },
+    loadCachedData() {
+      if (!this.host.HostId) {
+        this.updateGauges();
+        return;
+      }
+      const key = `host_perf_${this.host.HostId}`;
+      const cached = localStorage.getItem(key);
+      if (cached) {
+        try {
+          const data = JSON.parse(cached);
+          if (data.gauges) this.gauges = data.gauges;
+          if (data.sysInfo) this.sysInfo = data.sysInfo;
+        } catch (e) {
+          this.updateGauges();
+        }
+      } else {
+        this.updateGauges();
+      }
+    },
+    saveCachedData() {
+      if (!this.host.HostId) return;
+      const key = `host_perf_${this.host.HostId}`;
+      localStorage.setItem(key, JSON.stringify({
+        gauges: this.gauges,
+        sysInfo: this.sysInfo
+      }));
     },
     async refresh() {
       if (!this.host.HostId) return;
@@ -248,6 +280,7 @@ export default {
             };
           }
 
+          this.saveCachedData();
           ElMessage.success(`Refreshed — ${res.hostname}`);
         } else {
           ElMessage.warning(res?.statusMessage || 'No data returned');

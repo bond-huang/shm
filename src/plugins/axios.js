@@ -5,6 +5,10 @@ axios.defaults.baseURL = '/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.request.use(config => {
+    // 发送 FormData 时让浏览器自动设置 Content-Type（含 boundary）
+    if (config.data instanceof FormData) {
+        delete config.headers['Content-Type'];
+    }
     return config;
 }, error => {
     ElMessage.error(error)

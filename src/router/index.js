@@ -11,6 +11,10 @@ import ScriptClass from '@/views/ScriptClass.vue'
 import AllTool from '@/views/AllTool.vue'
 import ToolClass from '@/views/ToolClass.vue'
 import AIAssistant from '@/views/AIAssistant.vue'
+import AnalysisTool from '@/views/tool/AnalysisTool.vue'
+import PerformanceAnalysis from '@/views/tool/PerformanceAnalysis.vue'
+import AnalysisPlaceholder from '@/views/tool/AnalysisPlaceholder.vue'
+import PlaceholderTool from '@/views/tool/PlaceholderTool.vue'
 import CategoryList from '@/views/CategoryList.vue'
 import CategoryDetail from '@/views/CategoryDetail.vue'
 
@@ -221,10 +225,93 @@ const routes = [{
         path: '/analytical-tools',
         component: AllTool,
         name: 'analytical-tools',
-        meta: {
-            title: 'Analytical Tools'
-        }
+        meta: { title: 'Analytical Tools' }
     }]
+  },
+  {
+    path: '/tool-analysis',
+    component: BaseLayout,
+    children: [{ path: '/tool-analysis', component: AnalysisTool, name: 'tool-analysis', meta: { title: 'Analysis Tool' } }]
+  },
+  {
+    path: '/analysis-performance',
+    component: BaseLayout,
+    children: [{ path: '/analysis-performance', component: PerformanceAnalysis, name: 'analysis-performance', meta: { title: 'Performance Analysis' } }]
+  },
+  {
+    path: '/analysis-log',
+    component: BaseLayout,
+    children: [{ path: '/analysis-log', component: AnalysisPlaceholder, name: 'analysis-log', meta: { title: 'Log Analysis' } }]
+  },
+  {
+    path: '/analysis-network',
+    component: BaseLayout,
+    children: [{ path: '/analysis-network', component: AnalysisPlaceholder, name: 'analysis-network', meta: { title: 'Network Analysis' } }]
+  },
+  {
+    path: '/analysis-data',
+    component: BaseLayout,
+    children: [{ path: '/analysis-data', component: AnalysisPlaceholder, name: 'analysis-data', meta: { title: 'Data Analysis' } }]
+  },
+  {
+    path: '/analysis-config',
+    component: BaseLayout,
+    children: [{ path: '/analysis-config', component: AnalysisPlaceholder, name: 'analysis-config', meta: { title: 'Config Analysis' } }]
+  },
+  {
+    path: '/analysis-rootcause',
+    component: BaseLayout,
+    children: [{ path: '/analysis-rootcause', component: AnalysisPlaceholder, name: 'analysis-rootcause', meta: { title: 'Root Cause Analysis' } }]
+  },
+  {
+    path: '/analysis-capacity',
+    component: BaseLayout,
+    children: [{ path: '/analysis-capacity', component: AnalysisPlaceholder, name: 'analysis-capacity', meta: { title: 'Capacity Analysis' } }]
+  },
+  {
+    path: '/tool-monitor',
+    component: BaseLayout,
+    children: [{ path: '/tool-monitor', component: PlaceholderTool, name: 'tool-monitor', meta: { title: 'Monitor Tool' } }]
+  },
+  {
+    path: '/tool-inspect',
+    component: BaseLayout,
+    children: [{ path: '/tool-inspect', component: PlaceholderTool, name: 'tool-inspect', meta: { title: 'Inspect Tool' } }]
+  },
+  {
+    path: '/tool-backup',
+    component: BaseLayout,
+    children: [{ path: '/tool-backup', component: PlaceholderTool, name: 'tool-backup', meta: { title: 'Backup & Restore' } }]
+  },
+  {
+    path: '/tool-deploy',
+    component: BaseLayout,
+    children: [{ path: '/tool-deploy', component: PlaceholderTool, name: 'tool-deploy', meta: { title: 'Deploy Tool' } }]
+  },
+  {
+    path: '/tool-operation',
+    component: BaseLayout,
+    children: [{ path: '/tool-operation', component: PlaceholderTool, name: 'tool-operation', meta: { title: 'Operation Tool' } }]
+  },
+  {
+    path: '/tool-optimize',
+    component: BaseLayout,
+    children: [{ path: '/tool-optimize', component: PlaceholderTool, name: 'tool-optimize', meta: { title: 'Optimize Tool' } }]
+  },
+  {
+    path: '/tool-network',
+    component: BaseLayout,
+    children: [{ path: '/tool-network', component: PlaceholderTool, name: 'tool-network', meta: { title: 'Network Tool' } }]
+  },
+  {
+    path: '/tool-security',
+    component: BaseLayout,
+    children: [{ path: '/tool-security', component: PlaceholderTool, name: 'tool-security', meta: { title: 'Security Tool' } }]
+  },
+  {
+    path: '/tool-debug',
+    component: BaseLayout,
+    children: [{ path: '/tool-debug', component: PlaceholderTool, name: 'tool-debug', meta: { title: 'Debug Tool' } }]
   },
   {
     path: '/tool-class',
