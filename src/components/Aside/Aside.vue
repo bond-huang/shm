@@ -196,6 +196,18 @@ export default {
   transition: width 0.25s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.shm-aside.collapsed {
+  width: 60px;
+}
+
+.shm-aside:not(.collapsed) {
+  width: 180px;
 }
 
 .aside-toggle {
@@ -203,6 +215,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 40px;
+  flex-shrink: 0;
   cursor: pointer;
   color: rgba(0, 198, 255, 0.6);
   border-bottom: 1px solid rgba(0, 198, 255, 0.06);
@@ -239,10 +252,37 @@ export default {
 .shm-aside .aside-menu {
   border-right: none !important;
   padding: 4px 6px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 自定义滚动条 - 暗色主题 */
+.shm-aside .aside-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.shm-aside .aside-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.shm-aside .aside-menu::-webkit-scrollbar-thumb {
+  background: rgba(0, 198, 255, 0.2);
+  border-radius: 2px;
+}
+
+.shm-aside .aside-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 198, 255, 0.4);
 }
 
 .shm-aside .aside-menu:not(.el-menu--collapse) {
   width: 180px;
+}
+
+/* 折叠状态隐藏文字 */
+.shm-aside .el-menu--collapse .el-submenu__title .menu-text,
+.shm-aside .el-menu--collapse .el-menu-item .menu-text {
+  display: none;
 }
 
 /* 所有菜单项统一样式 */
@@ -321,6 +361,7 @@ export default {
 .shm-aside .el-menu--collapse .el-menu-item {
   padding: 0 !important;
   justify-content: center;
+  min-width: 0;
 }
 
 .shm-aside .el-menu--collapse .menu-icon,

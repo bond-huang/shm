@@ -48,7 +48,7 @@ function execCommand(host, port, user, password, cmd, timeout = 10000) {
       port: port || 22,
       username: user,
       password,
-      readyTimeout: 5000,
+      readyTimeout: 10000,
       keepaliveInterval: 0
     });
   });
@@ -64,7 +64,7 @@ function execCommand(host, port, user, password, cmd, timeout = 10000) {
  * @param {number} timeout - 每条命令超时
  * @returns {Promise<string[]>} 每条命令的输出
  */
-function execCommands(host, port, user, password, cmds, timeout = 10000) {
+function execCommands(host, port, user, password, cmds, timeout = 15000) {
   return new Promise((resolve, reject) => {
     const conn = new Client();
     const results = [];
@@ -119,7 +119,7 @@ function execCommands(host, port, user, password, cmds, timeout = 10000) {
       port: port || 22,
       username: user,
       password,
-      readyTimeout: 5000,
+      readyTimeout: 10000,
       keepaliveInterval: 0
     });
   });

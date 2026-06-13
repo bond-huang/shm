@@ -1,6 +1,6 @@
 const express = require('express');
 const pool = require('../config/db');
-const { collectLinux } = require('../services/perfCollector');
+const { collectLinux, collectAIX } = require('../services/perfCollector');
 
 const router = express.Router();
 
@@ -37,6 +37,8 @@ router.get('/perf/realtime/:hostId', async (req, res) => {
 
     if (host.host_type === 'Linux') {
       perfData = await collectLinux(host.ip_address, 22, host.ssh_user, host.ssh_password);
+    } else if (host.host_type === 'AIX') {
+      perfData = await collectAIX(host.ip_address, 22, host.ssh_user, host.ssh_password);
     } else {
       return res.json({
         statusCode: '400',

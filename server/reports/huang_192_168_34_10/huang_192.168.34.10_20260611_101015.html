@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AIX Health Check Report - huang</title>
+  <style>
+    body { margin: 0 auto; max-width: 900px; font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: #333; padding: 20px; }
+    h1 { font-size: 24px; text-align: center; color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+    h2 { font-size: 18px; color: #1a73e8; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 30px; }
+    h3 { font-size: 14px; color: #555; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; font-size: 13px; }
+    th { background: #e8f0fe; color: #1a73e8; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .info-label { font-weight: 600; width: 180px; background: #f1f3f4; }
+    .normal { color: #28a745; } .warning { color: #dc3545; }
+    .header-meta { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+    pre { background: #f1f3f4; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>AIX System Health Check Report</h1>
+  <div class="header-meta">
+    <p>Host: <b>huang</b> (192.168.34.10) | Type: AIX | Date: 2026/06/11 10:10:15</p>
+  </div>
+
+  <h2>System Information</h2>
+  <table>
+    <tr><td class="info-label">OS Version</td><td>AIX</td></tr>
+    <tr><td class="info-label">Kernel</td><td>7.2.0.0</td></tr>
+    <tr><td class="info-label">Architecture</td><td>000000000000</td></tr>
+    <tr><td class="info-label">Hostname</td><td>huang</td></tr>
+    <tr><td class="info-label">IP Address</td><td>192.168.34.10</td></tr>
+    <tr><td class="info-label">CPU Cores</td><td>N/A</td></tr>
+    <tr><td class="info-label">Memory</td><td>2419 MB</td></tr>
+    <tr><td class="info-label">Swap</td><td>N/A</td></tr>
+    <tr><td class="info-label">Uptime</td><td>09:10PM   up   1:05,  0 users,  load average: 4.38, 4.30, 4.34</td></tr>
+    <tr><td class="info-label">Load Average</td><td>1min: 4, 5min: 3, 15min: 8</td></tr>
+    
+    <tr><td class="info-label">LPAR</td><td>System configuration: type=Shared mode=Capped smt=Off lcpu=1 mem=2048MB psize=1 ent=1.00 
+
+%user  %sys  %wait  %idle physc %entc  lbusy  vcsw phint
+----- ----- ------ ------ ----- ----- ------ ----- -----
+ 90.8   8.2    0.1    0.9  0.99  99.4   99.6 3440111     0</td></tr>
+    <tr><td class="info-label">IO Stats</td><td>System configuration: lcpu=1 drives=2 ent=1.00 paths=2 vdisks=0
+
+tty:      tin         tout    avg-cpu: % user % sys % idle % iowait physc % entc
+          0.0          0.4               90.8   8.2    0.9      0.1   1.0   99.4
+
+Disks:         % tm_act     Kbps      tps    Kb_read   Kb_wrtn
+hdisk0            0.3      61.3       3.4     161815     91532
+hdisk1            0.0       2.0       0.0       8441         0</td></tr>
+    <tr><td class="info-label">System Config</td><td>N/A</td></tr>
+    <tr><td class="info-label">Paging Space</td><td>Page Space      Physical Volume   Volume Group    Size %Used   Active    Auto    Type   Chksum
+hd6             hdisk0            rootvg         512MB     1     yes     yes      lv       0</td></tr>
+  
+  </table>
+
+  <h2>CPU Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Note</th></tr>
+    <tr><td colspan="5" style="text-align:center;color:#666;">AIX CPU usage details are available via vmstat output in system config section.</td></tr>
+  </table>
+
+  <h2>Memory Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Total(MB)</th><th>Used(MB)</th><th>Free(MB)</th><th>Used(%)</th><th>State Analysis</th></tr>
+    <tr><td>Physical Memory</td><td>2419</td><td>615</td><td>1804</td><td>25%</td><td class="normal">Normal. Memory usage is normal.</td></tr>
+    
+  </table>
+
+  <h2>Disk Performance</h2>
+  <table>
+    <tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount</th><th>State</th></tr>
+    <tr><td>/dev/hd4</td><td>1.00G</td><td>0.79G</td><td>21%G</td><td>2609</td><td>/</td><td class="warning">Critical!</td></tr>
+    <tr><td>/dev/hd2</td><td>2.50G</td><td>0.65G</td><td>75%G</td><td>38186</td><td>/usr</td><td class="warning">Critical!</td></tr>
+    <tr><td>/dev/hd9var</td><td>0.50G</td><td>0.46G</td><td>8%G</td><td>1041</td><td>/var</td><td class="warning">Critical!</td></tr>
+    <tr><td>/dev/hd3</td><td>5.00G</td><td>4.89G</td><td>3%G</td><td>233</td><td>/tmp</td><td class="warning">Critical!</td></tr>
+    <tr><td>/dev/hd1</td><td>0.50G</td><td>0.50G</td><td>1%G</td><td>14</td><td>/home</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/hd11admin</td><td>0.50G</td><td>0.50G</td><td>1%G</td><td>5</td><td>/admin</td><td class="normal">Normal</td></tr>
+    <tr><td>/proc</td><td>-G</td><td>-G</td><td>-G</td><td>0</td><td>/proc</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/hd10opt</td><td>0.50G</td><td>0.07G</td><td>87%G</td><td>10783</td><td>/opt</td><td class="warning">Critical!</td></tr>
+    <tr><td>/dev/livedump</td><td>0.50G</td><td>0.50G</td><td>1%G</td><td>4</td><td>/var/adm/ras/livedump</td><td class="normal">Normal</td></tr>
+  </table>
+  <p><b>Filesystem Check:</b> <span class="warning">Warning! Found 5 filesystem(s) over 80%: /, /usr, /var, /tmp, /opt</span></p>
+
+  <h2>System Error Log</h2>
+  <pre style="background:#fff3cd;padding:10px;border-radius:4px;font-size:12px;max-height:300px;overflow:auto;">---------------------------------------------------------------------------
+LABEL:          CORE_DUMP
+IDENTIFIER:     A924A5FC
+
+Date/Time:       Wed Jun 10 21:05:46 CDT 2026
+Sequence Number: 1911
+Machine Id:      000000000000
+Node Id:         huang
+Class:           S
+Type:            PERM
+WPAR:            Global
+Resource Name:   SYSPROC         
+
+Description
+SOFTWARE PROGRAM ABNORMALLY TERMINATED
+
+Probable Causes
+SOFTWARE PROGRAM
+
+User Causes
+USER GENERATED SIGNAL
+
+	Recommended Actions
+	CORRECT THEN RETRY
+
+Failure Causes
+SOFTWARE PROGRAM
+
+	Recommended Actions
+	RERUN THE APPLICATION PROGRAM
+	IF PROBLEM PERSISTS THEN DO THE FOLLOWING
+	CONTACT APPROPRIATE SERVICE REPRESENTATIVE
+
+Detail Data
+SIGNAL NUMBER
+          11
+USER'S PROCESS ID:
+               4784440
+FILE SYSTEM SERIAL NUMBER
+           1
+INODE NUMBER
+                  9728
+CORE FILE NAME
+/dev/core
+PROGRAM NAME
+ps
+STACK EXECUTION DISABLED
+           0
+COME FROM ADDRESS REGISTER
+_global_t 54
+
+PROCESSOR ID
+  hw_fru_id: N/A
+  hw_cpu_id: 0
+
+ADDITIONAL INFORMATION
+??
+_global_t 58
+_rec_mute 184
+_findiop 348
+fopen 20
+afopen 2C
+_build_lo 1D0
+_init_sea 2C
+_getgrgid 120
+getgrgid 38
+IPRA.$get 2E0
+IPRA.$prf 94C
+IPRA.$prc 2730
+main A10
+__start 74
+
+Symptom Data
+REPORTABLE
+1
+INTERNAL ERROR
+1
+SYMPTOM CODE
+PIDS/5765E6200 LVLS/520 PCSS/SPI2 FLDS/ps SIG/4 FLDS/_global_t VALU/58
+---------------------------------------------------------------------------
+LABEL:          CORE_DUMP
+IDENTIFIER:     A924A5FC
+
+Date/Time:       Wed Jun 10 20:50:43 CDT 2026
+Sequence Number: 1910
+Machine Id:      000000000000
+Node Id:         huang
+Class:           S
+Type:            PERM
+WPAR:            Global
+Resource Name:   SYSPROC         
+
+Description
+SOFTWARE PROGRAM ABNORMALLY TERMINATED
+
+Probable Causes
+SOFTWARE PROGRAM
+
+User Causes
+USER GENERATED SIGNAL</pre>
+
+  <h2>Top Processes (by Memory)</h2>
+  <table>
+    <tr><th>User</th><th>PID</th><th>CPU%</th><th>MEM%</th><th>Command</th></tr>
+    
+  </table>
+
+  <h2>System Reboot History</h2>
+  <pre>reboot    ~                                   Jun 10 20:04 
+reboot    ~                                   Jun 10 11:15 
+reboot    ~                                   Jun 10 09:00</pre>
+
+  <hr style="margin-top:30px;">
+  <p style="text-align:center;color:#999;font-size:12px;">Generated by SHM System Health Management | 2026/06/11 10:10:15</p>
+</body>
+</html>

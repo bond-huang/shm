@@ -1,14 +1,12 @@
 <template>
   <div class="common-layout">
-    <el-container direction="vertical">
-      <Header/>
-      <el-container>
-        <Aside/>
-        <el-container style="border: 1px solid rgba(0, 198, 255, 0.08)">
-          <el-main><Content/></el-main>
-        </el-container>
-      </el-container>
-    </el-container>
+    <Header/>
+    <div class="main-wrapper">
+      <Aside/>
+      <div class="content-wrapper">
+        <Content/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,21 +26,27 @@ export default {
 </script>
 
 <style>
-  .el-main {
+  .common-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* 主包装器 */
+  .main-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* 内容包装器 - 滚动容器 */
+  .content-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 0;
     background-color: #f0f2f5;
-    color: #333;
-    text-align: center;
-  }
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
+    transition: width 0.25s ease;
   }
 </style>

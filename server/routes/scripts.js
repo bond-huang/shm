@@ -117,6 +117,9 @@ router.post('/scripts', upload.single('file'), async (req, res) => {
       }
     }
 
+    // 统一转换为 Unix 换行符 (LF)
+    content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
     const [result] = await pool.query(
       `INSERT INTO scripts (name, introduction, run_system, script_type, description, script_content, filename, description_file)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -165,6 +168,9 @@ router.put('/scripts/:id', upload.single('file'), async (req, res) => {
         // keep existing content
       }
     }
+
+    // 统一转换为 Unix 换行符 (LF)
+    content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
     await pool.query(
       `UPDATE scripts SET name = ?, introduction = ?, run_system = ?, script_type = ?, description = ?, script_content = ?, filename = ?, description_file = ? WHERE id = ?`,

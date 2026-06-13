@@ -52,6 +52,38 @@ export default {
 </script>
 
 <style scoped>
+.page-title {
+  position: relative;
+  margin-bottom: 8px;
+  padding: 16px 0 12px;
+  overflow: hidden;
+}
+.title-glow {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00c6ff, #7c3aed, #ec4899, transparent);
+  border-radius: 2px;
+}
+.gradient-text {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #00c6ff 0%, #7c3aed 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.title-desc {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #909399;
+  letter-spacing: 0.5px;
+}
 .tool-card {
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,21 +93,21 @@ export default {
 }
 .tool-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 .tool-card :deep(.el-card__body) {
-  padding: 20px;
+  padding: 16px;
 }
 .tool-content {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 .tool-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +119,7 @@ export default {
   transform: scale(1.08) rotate(-3deg);
 }
 .tool-icon i {
-  font-size: 22px;
+  font-size: 20px;
   color: #fff;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
@@ -96,10 +128,13 @@ export default {
   min-width: 0;
 }
 .tool-info h4 {
-  margin: 0 0 4px;
-  font-size: 15px;
+  margin: 0 0 3px;
+  font-size: 14px;
   font-weight: 600;
   color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tool-info p {
   margin: 0;

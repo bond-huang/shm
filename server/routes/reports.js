@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const pool = require('../config/db');
-const { SCRIPT_NAME, INSPECTION_SCRIPT, runInspection } = require('../services/inspection');
+const { getInspectionConfig, runInspection } = require('../services/inspection');
 const { generateReport } = require('../services/reportGenerator');
 
 const router = express.Router();
@@ -15,10 +15,12 @@ if (!fs.existsSync(REPORTS_DIR)) {
 
 // GET /api/reports/script - 获取巡检脚本内容
 router.get('/reports/script', (req, res) => {
+  const hostType = req.query.hostType || 'Linux';
+  const config = getInspectionConfig(hostType);
   res.json({
     statusCode: '200',
     statusMessage: 'success',
-    data: { name: SCRIPT_NAME, script: INSPECTION_SCRIPT }
+    data: { name: config.scriptName, script: config.script }
   });
 });
 
@@ -43,25 +45,21 @@ router.post('/reports/generate/:hostId', async (req, res) => {
       return res.json({ statusCode: '400', statusMessage: 'SSH credentials not configured' });
     }
 
-    if (host.host_type !== 'Linux') {
-      return res.json({ statusCode: '400', statusMessage: 'Only Linux hosts are supported' });
-    }
-
-    // 执行巡检
-    const data = await runInspection(host.ip_address, 22, host.ssh_user, host.ssh_password);
+    // 执行巡检（支持 Linux 和 AIX）
+    const data = await runInspection(host.ip_address, 22, host.ssh_user, host.ssh_password, host.host_type);
 
     // 生成报告
-    const html = generateReport(data, { ip: host.ip_address });
+    const html = generateReport(data, { ip: host.ip_address, hostType: host.host_type });
 
-    // 创建目录: reports/{hostname}_{ip}/
-    const hostname = data.systemInfo.hostname || host.host_name;
-    const dirName = `${hostname}_${host.ip_address.replace(/\./g, '_')}`;
+    // 创建目录: reports/{hostname}_{ip}/ — 使用数据库中的 host_name 保持与列表一致
+    const dirName = `${host.host_name}_${host.ip_address.replace(/\./g, '_')}`;
     const reportDir = path.join(REPORTS_DIR, dirName);
     if (!fs.existsSync(reportDir)) {
       fs.mkdirSync(reportDir, { recursive: true });
     }
 
     // 文件名: {hostname}_{IP}_{YYYYMMDD_HHmmss}.html
+    const hostname = host.host_name;
     const now = new Date();
     const ts = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
     const fileName = `${hostname}_${host.ip_address}_${ts}.html`;

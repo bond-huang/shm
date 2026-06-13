@@ -15,7 +15,7 @@ INSERT INTO menus (menu_id, parent_id, menu_type, menu_name, path, sort_order) V
 ('1-2-2', '1-2', 2, 'Linuxtest2', '/allsystems', 2);
 
 -- 主机数据 (与 mock 数据一致)
-INSERT INTO hosts (id, host_type, host_name, ip_address, description, status_info) VALUES
+INSERT INTO hosts (id, host_type, host_name, ip_address, description, status) VALUES
 (1, 'AIX', 'AIXtest1', '192.168.100.100', 'IBM AIX test system', 'Health'),
 (2, 'AIX', 'AIXtest2', '192.168.100.101', 'IBM AIX test system', 'Warning'),
 (3, 'AIX', 'AIXtest3', '192.168.100.102', 'IBM AIX test system', 'Health'),

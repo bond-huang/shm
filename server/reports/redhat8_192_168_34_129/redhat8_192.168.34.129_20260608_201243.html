@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Health Check Report - redhat8</title>
+  <style>
+    body { margin: 0 auto; max-width: 900px; font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: #333; padding: 20px; }
+    h1 { font-size: 24px; text-align: center; color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+    h2 { font-size: 18px; color: #1a73e8; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 30px; }
+    h3 { font-size: 14px; color: #555; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; font-size: 13px; }
+    th { background: #e8f0fe; color: #1a73e8; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .info-label { font-weight: 600; width: 180px; background: #f1f3f4; }
+    .normal { color: #28a745; } .warning { color: #dc3545; }
+    .header-meta { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+    pre { background: #f1f3f4; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Linux System Health Check Report</h1>
+  <div class="header-meta">
+    <p>Host: <b>redhat8</b> (192.168.34.129) | Date: 2026/06/08 20:12:43</p>
+  </div>
+
+  <h2>System Information</h2>
+  <table>
+    <tr><td class="info-label">OS Version</td><td>Red Hat Enterprise Linux 8.0 (Ootpa)</td></tr>
+    <tr><td class="info-label">Kernel</td><td>4.18.0-80.el8.x86_64</td></tr>
+    <tr><td class="info-label">Architecture</td><td>x86_64</td></tr>
+    <tr><td class="info-label">Hostname</td><td>redhat8</td></tr>
+    <tr><td class="info-label">IP Address</td><td>192.168.34.129</td></tr>
+    <tr><td class="info-label">CPU Cores</td><td>2</td></tr>
+    <tr><td class="info-label">Memory</td><td>1806 MB</td></tr>
+    <tr><td class="info-label">Swap</td><td>2047 MB</td></tr>
+    <tr><td class="info-label">Uptime</td><td>up 6 minutes</td></tr>
+    <tr><td class="info-label">Load Average</td><td>0.16 0.31 0.16 1/675 4007</td></tr>
+    <tr><td class="info-label">SELinux</td><td>Enforcing</td></tr>
+    <tr><td class="info-label">Firewall</td><td>active</td></tr>
+  </table>
+
+  <h2>CPU Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Value(%)</th><th>State Analysis</th></tr>
+    <tr><td>User</td><td>0</td><td>-</td></tr>
+    <tr><td>System</td><td>5.7</td><td>-</td></tr>
+    <tr><td>IOWait</td><td>0</td><td class="normal">Normal.</td></tr>
+    <tr><td>Total Usage</td><td>5.7</td><td class="normal">Normal. CPU usage is normal.</td></tr>
+    <tr><td>Idle</td><td>94.3</td><td class="normal">Normal. CPU idle is normal.</td></tr>
+  </table>
+
+  <h2>Memory Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Total(MB)</th><th>Used(MB)</th><th>Free(MB)</th><th>Used(%)</th><th>State Analysis</th></tr>
+    <tr><td>Physical Memory</td><td>1806</td><td>1278</td><td>99</td><td>71%</td><td class="normal">Attention. Memory usage is high.</td></tr>
+    <tr><td>Swap</td><td>2047</td><td>13</td><td>2034</td><td>1%</td><td class="normal">Normal.</td></tr>
+  </table>
+
+  <h2>Disk Performance</h2>
+  <table>
+    <tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount</th><th>State</th></tr>
+    <tr><td>devtmpfs</td><td>889M</td><td>0</td><td>889M</td><td>0%</td><td>/dev</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>904M</td><td>0</td><td>904M</td><td>0%</td><td>/dev/shm</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>904M</td><td>9.8M</td><td>894M</td><td>2%</td><td>/run</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>904M</td><td>0</td><td>904M</td><td>0%</td><td>/sys/fs/cgroup</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/mapper/rhel-root</td><td>17G</td><td>5.4G</td><td>12G</td><td>32%</td><td>/</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/nvme0n1p1</td><td>1014M</td><td>169M</td><td>846M</td><td>17%</td><td>/boot</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/nvme0n2p5</td><td>672M</td><td>568K</td><td>637M</td><td>1%</td><td>/testfs</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>181M</td><td>16K</td><td>181M</td><td>1%</td><td>/run/user/42</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>181M</td><td>3.4M</td><td>178M</td><td>2%</td><td>/run/user/1000</td><td class="normal">Normal</td></tr>
+  </table>
+  <p><b>Filesystem Check:</b> <span class="normal">No filesystem used over 80% was found.</span></p>
+
+  <h2>System Error Log</h2>
+  <p>No critical errors found in system logs.</p>
+
+  <h2>Top Processes (by Memory)</h2>
+  <table>
+    <tr><th>User</th><th>PID</th><th>CPU%</th><th>MEM%</th><th>Command</th></tr>
+    <tr><td>huang</td><td>2540</td><td>2.8</td><td>8.4</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/gnome-shell</td></tr>
+    <tr><td>gdm</td><td>1279</td><td>0.7</td><td>7.7</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/gnome-shell</td></tr>
+    <tr><td>huang</td><td>2861</td><td>0.6</td><td>4.1</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/gnome-software --gapplication-service</td></tr>
+    <tr><td>huang</td><td>2717</td><td>0.1</td><td>2.9</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/libexec/gsd-color</td></tr>
+    <tr><td>huang</td><td>2559</td><td>0.2</td><td>2.9</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/Xwayland :0 -rootless -terminate -accessx -core -listen 4 -listen 5 -displayfd 6</td></tr>
+    <tr><td>huang</td><td>2688</td><td>0.1</td><td>2.8</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/libexec/gsd-xsettings</td></tr>
+    <tr><td>gdm</td><td>1861</td><td>0.0</td><td>2.8</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/libexec/gsd-media-keys</td></tr>
+    <tr><td>huang</td><td>2728</td><td>0.1</td><td>2.8</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/libexec/gsd-media-keys</td></tr>
+    <tr><td>gdm</td><td>1484</td><td>0.0</td><td>2.8</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/Xwayland :1024 -rootless -terminate -accessx -core -listen 4 -listen 5 -displayfd 6</td></tr>
+    <tr><td>gdm</td><td>1834</td><td>0.0</td><td>2.7</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/libexec/gsd-color</td></tr>
+  </table>
+
+  <h2>System Reboot History</h2>
+  <pre>reboot   system boot  4.18.0-80.el8.x8 Mon Jun  8 08:06   still running
+reboot   system boot  4.18.0-80.el8.x8 Mon Jun  8 08:04 - 08:06  (00:01)
+reboot   system boot  4.18.0-80.el8.x8 Mon Jun  8 08:00 - 08:04  (00:04)</pre>
+
+  <hr style="margin-top:30px;">
+  <p style="text-align:center;color:#999;font-size:12px;">Generated by SHM System Health Management | 2026/06/08 20:12:43</p>
+</body>
+</html>

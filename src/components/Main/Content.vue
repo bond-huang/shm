@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <el-card>
+  <div class="content-container">
+    <el-card class="breadcrumb-card">
       <Breadcrumb></Breadcrumb>
     </el-card>
-    <div class="shm-content" :style="{height: (height-120)+'px'}">
-      <section style="overflow: auto !important">
+    <div class="shm-content">
+      <section class="content-section">
         <transition name="fade" mode="out-in">
           <keep-alive>
-            <el-card
-              style="overflow: auto !important"
-              :style="{height: (height-140)+'px'}">
+            <el-card class="main-card">
               <router-view></router-view>
             </el-card>
           </keep-alive>
@@ -34,10 +32,27 @@ export default {
 </script>
 
 <style scoped>
+.content-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.breadcrumb-card {
+  flex-shrink: 0;
+}
+
 .shm-content {
-  border: #f6f3f3 solid 1px;
+  flex: 1;
   background-color: #f6f3f3;
-  overflow-y: auto;
   padding: 6px 6px;
+}
+
+.content-section {
+  min-height: calc(100vh - 160px);
+}
+
+.main-card {
+  min-height: calc(100vh - 200px);
 }
 </style>

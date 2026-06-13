@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AIX Snap Analysis Report - sapecp01</title>
+<style>
+body { margin: 0 auto; max-width: 1100px; font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; color: #333; padding: 20px; }
+h1 { font-size: 24px; text-align: center; color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+h2 { font-size: 18px; color: #1a73e8; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 30px; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; font-size: 13px; }
+th { background: #e8f0fe; color: #1a73e8; font-weight: 600; }
+tr:nth-child(even) { background: #f8f9fa; }
+.info-label { font-weight: 600; width: 280px; background: #f1f3f4; }
+.stat-cards { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
+.stat-card { flex: 1; min-width: 180px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+.stat-card .number { font-size: 32px; font-weight: 700; }
+.stat-card .label { font-size: 13px; color: #666; margin-top: 4px; }
+.stat-card.warn .number { color: #e74c3c; }
+.stat-card.info .number { color: #3498db; }
+.stat-card.ok .number { color: #27ae60; }
+.stat-card.caution .number { color: #f39c12; }
+.severity-legend { display: flex; gap: 12px; margin: 8px 0; font-size: 13px; }
+.severity-legend span { display: flex; align-items: center; gap: 4px; }
+pre { background: #1e1e2e; color: #cdd6f4; padding: 12px; border-radius: 6px; font-size: 12px; max-height: 400px; overflow: auto; white-space: pre-wrap; word-break: break-all; }
+.header-meta { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.tag-perm { background: #fde8e8; color: #c0392b; }
+.tag-temp { background: #fef3e2; color: #e67e22; }
+.tag-perf { background: #fef9e7; color: #f39c12; }
+.tag-info { background: #e8f4fd; color: #2980b9; }
+</style>
+</head>
+<body>
+<h1>AIX System Snap Analysis Report</h1>
+<div class="header-meta">
+<p><b>Node:</b> sapecp01 | <b>Partition:</b> 740A_1 | <b>OS:</b> 7100-00-10-1334 | <b>Generated:</b> 2026/06/11 14:13:36</p>
+</div>
+
+<h2>System Information</h2>
+<table>
+  <tr><td class="info-label">Node Name</td><td>sapecp01</td></tr>
+  <tr><td class="info-label">Partition Name</td><td>740A_1</td></tr>
+  <tr><td class="info-label">Partition Number</td><td>1</td></tr>
+  <tr><td class="info-label">Type</td><td>Dedicated-SMT-4</td></tr>
+  <tr><td class="info-label">Mode</td><td>Capped</td></tr>
+  <tr><td class="info-label">Entitled Capacity</td><td>16.00 cores</td></tr>
+  <tr><td class="info-label">Online Virtual CPUs</td><td>16</td></tr>
+  <tr><td class="info-label">Online Memory</td><td>127744 MB</td></tr>
+  <tr><td class="info-label">Maximum Memory</td><td>131072 MB</td></tr>
+  <tr><td class="info-label">AIX Level</td><td>7100-00-10-1334</td></tr>
+  <tr><td class="info-label">Physical CPU Percentage</td><td>100.00%</td></tr>
+</table>
+
+<h2>Error Log Summary</h2>
+<div class="stat-cards">
+  <div class="stat-card warn">
+    <div class="number">312</div>
+    <div class="label">Total Events</div>
+  </div>
+  <div class="stat-card warn">
+    <div class="number">298</div>
+    <div class="label">🔴 PERM (Permanent)</div>
+  </div>
+  <div class="stat-card caution">
+    <div class="number">5</div>
+    <div class="label">🟠 TEMP (Temporary)</div>
+  </div>
+  <div class="stat-card ok">
+    <div class="number">0</div>
+    <div class="label">🟡 PERF (Performance)</div>
+  </div>
+  <div class="stat-card info">
+    <div class="number">9</div>
+    <div class="label">🔵 INFO</div>
+  </div>
+</div>
+
+<h2>Top Error Labels</h2>
+<table>
+<tr><th>#</th><th>Label</th><th>Count</th><th>Severity</th></tr>
+<tr><td>1</td><td>PGSP_KILL</td><td>292</td><td><span class="tag tag-perm">PERM</span></td></tr>
+<tr><td>2</td><td>SRC</td><td>5</td><td><span class="tag tag-perm">PERM</span></td></tr>
+<tr><td>3</td><td>SRC_RSTRT</td><td>5</td><td><span class="tag tag-info">INFO</span></td></tr>
+<tr><td>4</td><td>MUSENT_LINK_DOWN</td><td>4</td><td><span class="tag tag-temp">TEMP</span></td></tr>
+<tr><td>5</td><td>GS_START_ST</td><td>1</td><td><span class="tag tag-info">INFO</span></td></tr>
+<tr><td>6</td><td>TS_START_ST</td><td>1</td><td><span class="tag tag-info">INFO</span></td></tr>
+<tr><td>7</td><td>RMCD_INFO_0_ST</td><td>1</td><td><span class="tag tag-info">INFO</span></td></tr>
+<tr><td>8</td><td>ECH_CHAN_RCVRY</td><td>1</td><td><span class="tag tag-info">INFO</span></td></tr>
+<tr><td>9</td><td>ERRLOG_ON</td><td>1</td><td><span class="tag tag-temp">TEMP</span></td></tr>
+<tr><td>10</td><td>EPOW_SUS_CHRP</td><td>1</td><td><span class="tag tag-perm">PERM</span></td></tr>
+</table>
+
+<h2>Recent Error Events (Last 30)</h2>
+<table>
+<tr><th>Date/Time</th><th>Type</th><th>Label</th><th>Resource</th><th>Description</th></tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 18:12:50 2025</td>
+  <td>🔵 INFO</td>
+  <td><b>GS_START_ST</b></td>
+  <td>grpsvcs</td>
+  <td>Group Services daemon started</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 18:12:48 2025</td>
+  <td>🔵 INFO</td>
+  <td><b>TS_START_ST</b></td>
+  <td>topsvcs</td>
+  <td>Topology Services daemon started</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:53:07 2025</td>
+  <td>🔵 INFO</td>
+  <td><b>RMCD_INFO_0_ST</b></td>
+  <td>RMCdaemon</td>
+  <td>The daemon is started.</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:47 2025</td>
+  <td>🟠 TEMP</td>
+  <td><b>MUSENT_LINK_DOWN</b></td>
+  <td>ent10</td>
+  <td>ETHERNET DOWN</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:47 2025</td>
+  <td>🔵 INFO</td>
+  <td><b>ECH_CHAN_RCVRY</b></td>
+  <td>ent16</td>
+  <td>ETHERCHANNEL RECOVERY</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:47 2025</td>
+  <td>🟠 TEMP</td>
+  <td><b>MUSENT_LINK_DOWN</b></td>
+  <td>ent8</td>
+  <td>ETHERNET DOWN</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:46 2025</td>
+  <td>🟠 TEMP</td>
+  <td><b>MUSENT_LINK_DOWN</b></td>
+  <td>ent6</td>
+  <td>ETHERNET DOWN</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:46 2025</td>
+  <td>🟠 TEMP</td>
+  <td><b>MUSENT_LINK_DOWN</b></td>
+  <td>ent4</td>
+  <td>ETHERNET DOWN</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:51:31 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:52:45 2025</td>
+  <td>🟠 TEMP</td>
+  <td><b>ERRLOG_ON</b></td>
+  <td>errdemon</td>
+  <td>ERROR LOGGING TURNED ON</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 17:37:19 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>EPOW_SUS_CHRP</b></td>
+  <td>sysplanar0</td>
+  <td>ENVIRONMENTAL PROBLEM</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:10:58 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:10:03 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:10:00 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:57 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:56 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:37 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:35 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:33 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:30 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:15 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:15 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:09:14 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:34 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:34 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:34 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:27 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:27 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:25 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+<tr>
+  <td style="white-space:nowrap;">Tue Nov 11 13:08:25 2025</td>
+  <td>🔴 PERM</td>
+  <td><b>PGSP_KILL</b></td>
+  <td>SYSVMM</td>
+  <td>SOFTWARE PROGRAM ABNORMALLY TERMINATED</td>
+</tr>
+</table>
+
+<h2>Disk Devices</h2>
+<table>
+<tr><th>Name</th><th>Status</th><th>Location</th><th>Description</th></tr>
+<tr><td>hdisk0</td><td style="color: #27ae60;">Available</td><td>00-00-00</td><td>U78AA.001.WZSL0GX-P2-D1 SAS Disk Drive</td></tr>
+<tr><td>hdisk1</td><td style="color: #27ae60;">Available</td><td>00-00-00</td><td>U78AA.001.WZSL0GX-P2-D2 SAS Disk Drive</td></tr>
+<tr><td>hdisk2</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L1000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk3</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L0 MPIO FC 2145</td></tr>
+<tr><td>hdisk4</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L2000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk5</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L3000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk6</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L4000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk7</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L5000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk8</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L6000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk9</td><td style="color: #27ae60;">Available</td><td>09-01-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T2-W500507680B224F2A-L7000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk10</td><td style="color: #e74c3c;">Defined</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-L8000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk11</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-L9000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk12</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-LA000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk13</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-LB000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk14</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-LC000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk15</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-LD000000000000 MPIO FC 2145</td></tr>
+<tr><td>hdisk16</td><td style="color: #27ae60;">Available</td><td>09-00-02</td><td>U78AA.001.WZSL0GX-P1-C1-C2-T1-W500507680B214F2A-L8000000000000 MPIO FC 2145</td></tr>
+</table>
+<p><b>Disk Summary:</b> 16 Available, 1 Defined, 17 Total</p>
+
+<hr style="margin-top:30px;">
+<p style="text-align:center;color:#999;font-size:12px;">Generated by SHM AIX Snap Analyzer | 2026/06/11 14:13:36</p>
+</body>
+</html>

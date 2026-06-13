@@ -1,5 +1,5 @@
 /**
- * 生成 Linux 巡检 HTML 报告
+ * 生成巡检 HTML 报告（支持 Linux 和 AIX）
  */
 function generateReport(data, hostInfo) {
   const now = new Date();
@@ -11,6 +11,10 @@ function generateReport(data, hostInfo) {
   const mem = data.memory;
   const memUsedPct = mem.total > 0 ? Math.round((mem.used / mem.total) * 100) : 0;
   const swapUsedPct = mem.swapTotal > 0 ? Math.round((mem.swapUsed / mem.swapTotal) * 100) : 0;
+
+  // 判断系统类型
+  const isAIX = hostInfo.hostType === 'AIX';
+  const osType = isAIX ? 'AIX' : 'Linux';
 
   // CPU 状态分析
   const cpuUsage = (cpu.user + cpu.system + cpu.iowait).toFixed(1);
@@ -30,13 +34,43 @@ function generateReport(data, hostInfo) {
   // 错误日志分析
   const errorCheck = data.errors && data.errors.length > 10
     ? `<pre style="background:#fff3cd;padding:10px;border-radius:4px;font-size:12px;max-height:300px;overflow:auto;">${escapeHtml(data.errors)}</pre>`
-    : '<p>No critical errors found in system logs.</p>';
+    : `<p>No critical errors found in system ${isAIX ? 'error log (errpt)' : 'logs (journalctl)'}.`;
+
+  // AIX 额外信息
+  const aixExtraRows = isAIX ? `
+    <tr><td class="info-label">LPAR</td><td>${escapeHtml(si.lpar || 'N/A')}</td></tr>
+    <tr><td class="info-label">IO Stats</td><td>${escapeHtml(si.ioStats || 'N/A')}</td></tr>
+    <tr><td class="info-label">System Config</td><td>${escapeHtml(si.config || 'N/A')}</td></tr>
+    <tr><td class="info-label">Paging Space</td><td>${escapeHtml(si.pagingSpace || 'N/A')}</td></tr>
+  ` : `
+    <tr><td class="info-label">SELinux</td><td>${escapeHtml(si.selinux)}</td></tr>
+    <tr><td class="info-label">Firewall</td><td>${escapeHtml(si.firewall)}</td></tr>
+  `;
+
+  // CPU 表格 - AIX 可能没有详细 CPU 数据
+  const cpuTableRows = isAIX
+    ? `<tr><td colspan="5" style="text-align:center;color:#666;">AIX CPU usage details are available via vmstat output in system config section.</td></tr>`
+    : `<tr><td>User</td><td>${cpu.user}</td><td>-</td></tr>
+    <tr><td>System</td><td>${cpu.system}</td><td>-</td></tr>
+    <tr><td>IOWait</td><td>${cpu.iowait}</td><td class="${cpu.iowait > 10 ? 'warning' : 'normal'}">${cpu.iowait > 10 ? 'Warning! IOWait is high.' : 'Normal.'}</td></tr>
+    <tr><td>Total Usage</td><td>${cpuUsage}</td><td class="${cpuUsage > 80 ? 'warning' : 'normal'}">${cpuState}</td></tr>
+    <tr><td>Idle</td><td>${cpu.idle.toFixed(1)}</td><td class="${cpu.idle < 20 ? 'warning' : 'normal'}">${cpuIdleState}</td></tr>`;
+
+  // CPU 表格头
+  const cpuTableHeader = isAIX
+    ? `<tr><th>Item</th><th>Note</th></tr>`
+    : `<tr><th>Item</th><th>Value(%)</th><th>State Analysis</th></tr>`;
+
+  // Load Average 显示
+  const loadAvgStr = typeof si.loadAvg === 'object'
+    ? `1min: ${si.loadAvg['1min']}, 5min: ${si.loadAvg['5min']}, 15min: ${si.loadAvg['15min']}`
+    : escapeHtml(si.loadAvg);
 
   return `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Linux Health Check Report - ${escapeHtml(si.hostname)}</title>
+  <title>${osType} Health Check Report - ${escapeHtml(si.hostname)}</title>
   <style>
     body { margin: 0 auto; max-width: 900px; font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: #333; padding: 20px; }
     h1 { font-size: 24px; text-align: center; color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
@@ -53,9 +87,9 @@ function generateReport(data, hostInfo) {
   </style>
 </head>
 <body>
-  <h1>Linux System Health Check Report</h1>
+  <h1>${osType} System Health Check Report</h1>
   <div class="header-meta">
-    <p>Host: <b>${escapeHtml(si.hostname)}</b> (${escapeHtml(hostInfo.ip)}) | Date: ${dateStr} ${timeStr}</p>
+    <p>Host: <b>${escapeHtml(si.hostname)}</b> (${escapeHtml(hostInfo.ip)}) | Type: ${osType} | Date: ${dateStr} ${timeStr}</p>
   </div>
 
   <h2>System Information</h2>
@@ -65,30 +99,25 @@ function generateReport(data, hostInfo) {
     <tr><td class="info-label">Architecture</td><td>${escapeHtml(si.architecture)}</td></tr>
     <tr><td class="info-label">Hostname</td><td>${escapeHtml(si.hostname)}</td></tr>
     <tr><td class="info-label">IP Address</td><td>${escapeHtml(hostInfo.ip)}</td></tr>
-    <tr><td class="info-label">CPU Cores</td><td>${si.cpuCores}</td></tr>
-    <tr><td class="info-label">Memory</td><td>${mem.total} MB</td></tr>
-    <tr><td class="info-label">Swap</td><td>${mem.swapTotal} MB</td></tr>
+    <tr><td class="info-label">CPU Cores</td><td>${si.cpuCores || 'N/A'}</td></tr>
+    <tr><td class="info-label">Memory</td><td>${mem.total > 0 ? mem.total + ' MB' : 'N/A'}</td></tr>
+    <tr><td class="info-label">Swap</td><td>${mem.swapTotal > 0 ? mem.swapTotal + ' MB' : 'N/A'}</td></tr>
     <tr><td class="info-label">Uptime</td><td>${escapeHtml(si.uptime)}</td></tr>
-    <tr><td class="info-label">Load Average</td><td>${escapeHtml(si.loadAvg)}</td></tr>
-    <tr><td class="info-label">SELinux</td><td>${escapeHtml(si.selinux)}</td></tr>
-    <tr><td class="info-label">Firewall</td><td>${escapeHtml(si.firewall)}</td></tr>
+    <tr><td class="info-label">Load Average</td><td>${loadAvgStr}</td></tr>
+    ${aixExtraRows}
   </table>
 
   <h2>CPU Performance</h2>
   <table>
-    <tr><th>Item</th><th>Value(%)</th><th>State Analysis</th></tr>
-    <tr><td>User</td><td>${cpu.user}</td><td>-</td></tr>
-    <tr><td>System</td><td>${cpu.system}</td><td>-</td></tr>
-    <tr><td>IOWait</td><td>${cpu.iowait}</td><td class="${cpu.iowait > 10 ? 'warning' : 'normal'}">${cpu.iowait > 10 ? 'Warning! IOWait is high.' : 'Normal.'}</td></tr>
-    <tr><td>Total Usage</td><td>${cpuUsage}</td><td class="${cpuUsage > 80 ? 'warning' : 'normal'}">${cpuState}</td></tr>
-    <tr><td>Idle</td><td>${cpu.idle.toFixed(1)}</td><td class="${cpu.idle < 20 ? 'warning' : 'normal'}">${cpuIdleState}</td></tr>
+    ${cpuTableHeader}
+    ${cpuTableRows}
   </table>
 
   <h2>Memory Performance</h2>
   <table>
     <tr><th>Item</th><th>Total(MB)</th><th>Used(MB)</th><th>Free(MB)</th><th>Used(%)</th><th>State Analysis</th></tr>
     <tr><td>Physical Memory</td><td>${mem.total}</td><td>${mem.used}</td><td>${mem.free}</td><td>${memUsedPct}%</td><td class="${memUsedPct > 90 ? 'warning' : 'normal'}">${memState}</td></tr>
-    <tr><td>Swap</td><td>${mem.swapTotal}</td><td>${mem.swapUsed}</td><td>${mem.swapTotal - mem.swapUsed}</td><td>${swapUsedPct}%</td><td class="${swapUsedPct > 50 ? 'warning' : 'normal'}">${swapUsedPct > 50 ? 'Warning! Swap usage is high.' : 'Normal.'}</td></tr>
+    ${mem.swapTotal > 0 ? `<tr><td>Swap</td><td>${mem.swapTotal}</td><td>${mem.swapUsed}</td><td>${mem.swapTotal - mem.swapUsed}</td><td>${swapUsedPct}%</td><td class="${swapUsedPct > 50 ? 'warning' : 'normal'}">${swapUsedPct > 50 ? 'Warning! Swap usage is high.' : 'Normal.'}</td></tr>` : ''}
   </table>
 
   <h2>Disk Performance</h2>

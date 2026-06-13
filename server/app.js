@@ -11,6 +11,7 @@ const perfRealtimeRoutes = require('./routes/perf-realtime');
 const perfHistoryRoutes = require('./routes/perf-history');
 const reportRoutes = require('./routes/reports');
 const scriptRoutes = require('./routes/scripts');
+const standardCheckRoutes = require('./routes/standardCheck');
 const analysisRoutes = require('./routes/analysis');
 const userRoutes = require('./routes/users');
 const scheduler = require('./services/scheduler');
@@ -33,6 +34,7 @@ app.use('/api', perfRealtimeRoutes);
 app.use('/api', perfHistoryRoutes);
 app.use('/api', reportRoutes);
 app.use('/api', scriptRoutes);
+app.use('/api', standardCheckRoutes);
 app.use('/api', analysisRoutes);
 app.use('/api', userRoutes);
 

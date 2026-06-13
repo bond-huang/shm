@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Health Check Report - huang</title>
+  <style>
+    body { margin: 0 auto; max-width: 900px; font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: #333; padding: 20px; }
+    h1 { font-size: 24px; text-align: center; color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+    h2 { font-size: 18px; color: #1a73e8; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 30px; }
+    h3 { font-size: 14px; color: #555; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; font-size: 13px; }
+    th { background: #e8f0fe; color: #1a73e8; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .info-label { font-weight: 600; width: 180px; background: #f1f3f4; }
+    .normal { color: #28a745; } .warning { color: #dc3545; }
+    .header-meta { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+    pre { background: #f1f3f4; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Linux System Health Check Report</h1>
+  <div class="header-meta">
+    <p>Host: <b>huang</b> (47.115.149.250) | Type: Linux | Date: 2026/06/11 23:14:12</p>
+  </div>
+
+  <h2>System Information</h2>
+  <table>
+    <tr><td class="info-label">OS Version</td><td>CentOS Linux 7 (Core)</td></tr>
+    <tr><td class="info-label">Kernel</td><td>3.10.0-1160.119.1.el7.x86_64</td></tr>
+    <tr><td class="info-label">Architecture</td><td>x86_64</td></tr>
+    <tr><td class="info-label">Hostname</td><td>huang</td></tr>
+    <tr><td class="info-label">IP Address</td><td>47.115.149.250</td></tr>
+    <tr><td class="info-label">CPU Cores</td><td>2</td></tr>
+    <tr><td class="info-label">Memory</td><td>1756 MB</td></tr>
+    <tr><td class="info-label">Swap</td><td>N/A</td></tr>
+    <tr><td class="info-label">Uptime</td><td>up 1 year, 45 weeks, 2 days, 8 hours, 49 minutes</td></tr>
+    <tr><td class="info-label">Load Average</td><td>0.00 0.01 0.05 1/166 15318</td></tr>
+    
+    <tr><td class="info-label">SELinux</td><td>Disabled</td></tr>
+    <tr><td class="info-label">Firewall</td><td>unknown
+N/A</td></tr>
+  
+  </table>
+
+  <h2>CPU Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Value(%)</th><th>State Analysis</th></tr>
+    <tr><td>User</td><td>0</td><td>-</td></tr>
+    <tr><td>System</td><td>0</td><td>-</td></tr>
+    <tr><td>IOWait</td><td>0</td><td class="normal">Normal.</td></tr>
+    <tr><td>Total Usage</td><td>0.0</td><td class="normal">Normal. CPU usage is normal.</td></tr>
+    <tr><td>Idle</td><td>100.0</td><td class="normal">Normal. CPU idle is normal.</td></tr>
+  </table>
+
+  <h2>Memory Performance</h2>
+  <table>
+    <tr><th>Item</th><th>Total(MB)</th><th>Used(MB)</th><th>Free(MB)</th><th>Used(%)</th><th>State Analysis</th></tr>
+    <tr><td>Physical Memory</td><td>1756</td><td>244</td><td>189</td><td>14%</td><td class="normal">Normal. Memory usage is normal.</td></tr>
+    
+  </table>
+
+  <h2>Disk Performance</h2>
+  <table>
+    <tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount</th><th>State</th></tr>
+    <tr><td>devtmpfs</td><td>868M</td><td>0</td><td>868M</td><td>0%</td><td>/dev</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>879M</td><td>0</td><td>879M</td><td>0%</td><td>/dev/shm</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>879M</td><td>576K</td><td>878M</td><td>1%</td><td>/run</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>879M</td><td>0</td><td>879M</td><td>0%</td><td>/sys/fs/cgroup</td><td class="normal">Normal</td></tr>
+    <tr><td>/dev/vda1</td><td>40G</td><td>5.1G</td><td>33G</td><td>14%</td><td>/</td><td class="normal">Normal</td></tr>
+    <tr><td>tmpfs</td><td>176M</td><td>0</td><td>176M</td><td>0%</td><td>/run/user/0</td><td class="normal">Normal</td></tr>
+  </table>
+  <p><b>Filesystem Check:</b> <span class="normal">No filesystem used over 80% was found.</span></p>
+
+  <h2>System Error Log</h2>
+  <pre style="background:#fff3cd;padding:10px;border-radius:4px;font-size:12px;max-height:300px;overflow:auto;">-- Logs begin at Fri 2024-06-28 12:39:05 CST, end at Thu 2026-06-11 23:14:04 CST. --
+Jun 02 00:23:51 huang sshd[22746]: error: maximum authentication attempts exceeded for invalid user deploy from 39.106.21.229 port 37740 ssh2 [preauth]
+Jun 02 00:23:51 huang sshd[22748]: error: maximum authentication attempts exceeded for invalid user user from 39.106.21.229 port 37780 ssh2 [preauth]
+Jun 02 00:23:53 huang sshd[22754]: error: maximum authentication attempts exceeded for invalid user ftpuser from 39.106.21.229 port 38228 ssh2 [preauth]
+Jun 02 00:23:53 huang sshd[22751]: error: maximum authentication attempts exceeded for invalid user git from 39.106.21.229 port 38036 ssh2 [preauth]
+Jun 02 00:23:54 huang sshd[22756]: error: maximum authentication attempts exceeded for invalid user gbase from 39.106.21.229 port 38248 ssh2 [preauth]
+Jun 02 00:23:55 huang sshd[22759]: error: maximum authentication attempts exceeded for invalid user factory from 39.106.21.229 port 38296 ssh2 [preauth]
+Jun 02 00:23:56 huang sshd[22764]: error: maximum authentication attempts exceeded for invalid user ecs-user from 39.106.21.229 port 38470 ssh2 [preauth]
+Jun 02 00:23:56 huang sshd[22761]: error: maximum authentication attempts exceeded for invalid user test from 39.106.21.229 port 38382 ssh2 [preauth]
+Jun 02 00:23:57 huang sshd[22766]: error: maximum authentication attempts exceeded for admin from 39.106.21.229 port 38516 ssh2 [preauth]
+Jun 02 00:23:58 huang sshd[22771]: error: maximum authentication attempts exceeded for invalid user user from 39.106.21.229 port 38708 ssh2 [preauth]
+Jun 02 00:23:58 huang sshd[22769]: error: maximum authentication attempts exceeded for invalid user deploy from 39.106.21.229 port 38704 ssh2 [preauth]
+Jun 02 00:24:00 huang sshd[22775]: error: maximum authentication attempts exceeded for invalid user ftpuser from 39.106.21.229 port 39000 ssh2 [preauth]
+Jun 02 00:24:00 huang sshd[22777]: error: maximum authentication attempts exceeded for invalid user git from 39.106.21.229 port 39006 ssh2 [preauth]
+Jun 02 00:24:00 huang sshd[22780]: error: maximum authentication attempts exceeded for invalid user gbase from 39.106.21.229 port 39168 ssh2 [preauth]
+Jun 02 00:24:01 huang sshd[22782]: error: maximum authentication attempts exceeded for invalid user factory from 39.106.21.229 port 39204 ssh2 [preauth]
+Jun 02 00:24:02 huang sshd[22785]: error: maximum authentication attempts exceeded for invalid user ecs-user from 39.106.21.229 port 39284 ssh2 [preauth]
+Jun 02 00:24:02 huang sshd[22788]: error: maximum authentication attempts exceeded for invalid user test from 39.106.21.229 port 39382 ssh2 [preauth]
+Jun 02 00:24:03 huang sshd[22790]: error: maximum authentication attempts exceeded for admin from 39.106.21.229 port 39500 ssh2 [preauth]
+Jun 02 00:24:05 huang sshd[22793]: error: maximum authentication attempts exceeded for invalid user user from 39.106.21.229 port 39672 ssh2 [preauth]
+Jun 02 00:24:05 huang sshd[22795]: error: maximum authentication attempts exceeded for invalid user deploy from 39.106.21.229 port 39684 ssh2 [preauth]
+Jun 02 00:24:07 huang sshd[22799]: error: maximum authentication attempts exceeded for invalid user ftpuser from 39.106.21.229 port 39996 ssh2 [preauth]
+Jun 02 00:24:07 huang sshd[22801]: error: maximum authentication attempts exceeded for invalid user git from 39.106.21.229 port 40002 ssh2 [preauth]
+Jun 02 00:24:07 huang sshd[22803]: error: maximum authentication attempts exceeded for invalid user gbase from 39.106.21.229 port 40018 ssh2 [preauth]
+Jun 02 00:24:08 huang sshd[22806]: error: maximum authentication attempts exceeded for invalid user factory from 39.106.21.229 port 40116 ssh2 [preauth]
+Jun 02 00:24:09 huang sshd[22808]: error: maximum authentication attempts exceeded for invalid user ecs-user from 39.106.21.229 port 40230 ssh2 [preauth]
+Jun 02 00:24:09 huang sshd[22811]: error: maximum authentication attempts exceeded for invalid user test from 39.106.21.229 port 40294 ssh2 [preauth]
+Jun 02 00:24:10 huang sshd[22813]: error: maximum authentication attempts exceeded for admin from 39.106.21.229 port 40452 ssh2 [preauth]
+Jun 02 00:24:12 huang sshd[22817]: error: maximum authentication attempts exceeded for invalid user user from 39.106.21.229 port 40644 ssh2 [preauth]
+Jun 02 00:24:12 huang sshd[22819]: error: maximum authentication attempts exceeded for invalid user deploy from 39.106.21.229 port 40680 ssh2 [preauth]
+Jun 02 00:24:13 huang sshd[22827]: error: maximum authentication attempts exceeded for invalid user gbase from 39.106.21.229 port 40958 ssh2 [preauth]
+Jun 02 00:24:14 huang sshd[22823]: error: maximum authentication attempts exceeded for invalid user ftpuser from 39.106.21.229 port 40934 ssh2 [preauth]
+Jun 02 00:24:14 huang sshd[22825]: error: maximum authentication attempts exceeded for invalid user git from 39.106.21.229 port 40940 ssh2 [preauth]
+Jun 02 00:24:14 huang sshd[22830]: error: maximum authentication attempts exceeded for invalid user factory from 39.106.21.229 port 41090 ssh2 [preauth]
+Jun 02 00:24:16 huang sshd[22833]: error: maximum authentication attempts exceeded for invalid user ecs-user from 39.106.21.229 port 41246 ssh2 [preauth]
+Jun 02 00:24:16 huang sshd[22835]: error: maximum authentication attempts exceeded for invalid user test from 39.106.21.229 port 41260 ssh2 [preauth]
+Jun 02 00:24:16 huang sshd[22837]: error: maximum authentication attempts exceeded for admin from 39.106.21.229 port 41358 ssh2 [preauth]
+Jun 02 00:24:18 huang sshd[22841]: error: maximum authentication attempts exceeded for invalid user user from 39.106.21.229 port 41754 ssh2 [preauth]
+Jun 02 06:59:28 huang sshd[9844]: fatal: monitor_read: unpermitted request 6
+Jun 02 14:02:44 huang sshd[30703]: fatal: monitor_read: unpermitted request 6
+Jun 02 21:04:53 huang sshd[19068]: fatal: monitor_read: unpermitted request 6
+Jun 03 17:30:20 huang sshd[14511]: fatal: ssh_packet_get_string: incomplete message [preauth]
+Jun 07 09:13:29 huang sshd[14193]: fatal: monitor_read: unpermitted request 6
+Jun 08 05:53:12 huang sshd[10615]: fatal: monitor_read: unpermitted request 6
+Jun 08 20:05:17 huang sshd[20127]: fatal: monitor_read: unpermitted request 6
+Jun 09 04:09:39 huang sshd[11522]: fatal: monitor_read: unpermitted request 6
+Jun 09 11:12:12 huang sshd[32289]: fatal: monitor_read: unpermitted request 6
+Jun 09 18:07:44 huang sshd[20333]: fatal: monitor_read: unpermitted request 6
+Jun 10 01:21:42 huang sshd[9279]: fatal: monitor_read: unpermitted request 6
+Jun 10 08:21:58 huang sshd[29924]: fatal: monitor_read: unpermitted request 6
+Jun 10 17:15:09 huang sshd[23667]: fatal: monitor_read: unpermitted request 6</pre>
+
+  <h2>Top Processes (by Memory)</h2>
+  <table>
+    <tr><th>User</th><th>PID</th><th>CPU%</th><th>MEM%</th><th>Command</th></tr>
+    <tr><td>root</td><td>364</td><td>0.0</td><td>1.7</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/lib/systemd/systemd-journald</td></tr>
+    <tr><td>navusr</td><td>17424</td><td>0.0</td><td>1.5</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">uwsgi uwsgi.ini</td></tr>
+    <tr><td>navusr</td><td>17427</td><td>0.0</td><td>1.4</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">uwsgi uwsgi.ini</td></tr>
+    <tr><td>navusr</td><td>17426</td><td>0.0</td><td>1.4</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">uwsgi uwsgi.ini</td></tr>
+    <tr><td>navusr</td><td>17423</td><td>0.0</td><td>1.3</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">uwsgi uwsgi.ini</td></tr>
+    <tr><td>navusr</td><td>17421</td><td>0.0</td><td>1.2</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">uwsgi uwsgi.ini</td></tr>
+    <tr><td>root</td><td>867</td><td>0.0</td><td>1.0</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/bin/python2 -Es /usr/sbin/tuned -l -P</td></tr>
+    <tr><td>root</td><td>27492</td><td>1.2</td><td>1.0</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/local/aegis/aegis_client/aegis_12_93/AliYunDunMonitor</td></tr>
+    <tr><td>root</td><td>1202</td><td>0.0</td><td>0.9</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/sbin/rsyslogd -n</td></tr>
+    <tr><td>root</td><td>24768</td><td>0.1</td><td>0.6</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;">/usr/local/share/aliyun-assist/aliyun-service.symlink</td></tr>
+  </table>
+
+  <h2>System Reboot History</h2>
+  <pre>reboot   system boot  3.10.0-1160.119. Tue Jul 30 14:24 - 23:14 (681+08:49) 
+
+wtmp begins Fri Jun 28 12:39:05 2024</pre>
+
+  <hr style="margin-top:30px;">
+  <p style="text-align:center;color:#999;font-size:12px;">Generated by SHM System Health Management | 2026/06/11 23:14:12</p>
+</body>
+</html>

@@ -4,7 +4,6 @@
     <div class="page-title">
       <div class="title-glow"></div>
       <h2 class="gradient-text">System Classification</h2>
-      <p class="title-desc">Organize and monitor your infrastructure by different dimensions</p>
     </div>
 
     <el-tabs v-model="activeTab" @tab-click="onTabChange" class="class-tabs">
@@ -231,7 +230,7 @@ export default {
 
 .card-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -247,6 +246,7 @@ export default {
   position: relative;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
+  margin-top: 4px;
 }
 
 .category-card:hover .card-icon {
@@ -273,6 +273,7 @@ export default {
 .card-info {
   flex: 1;
   min-width: 0;
+  text-align: left;
 }
 
 .card-info h4 {
@@ -283,6 +284,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .card-info .count {
@@ -290,12 +292,14 @@ export default {
   font-size: 13px;
   color: #94a3b8;
   font-weight: 500;
+  text-align: left;
 }
 
 /* 状态标签 */
 .status-bar {
   display: flex;
   gap: 8px;
+  justify-content: flex-start;
 }
 
 .status-chip {

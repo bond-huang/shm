@@ -34,66 +34,133 @@
           </div>
         </div>
         <el-descriptions :column="3" :size="'medium'" border>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-type"></i>&nbsp;OS Version</template>
-            {{ sysInfo.osVersion || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-cpu"></i>&nbsp;Kernel</template>
-            {{ sysInfo.kernel || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="el-icon-user"></i>&nbsp;HostName</template>
-            {{ sysInfo.hostname || host.HostName }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="el-icon-location-outline"></i>&nbsp;IP Address</template>
-            {{ host.IPadd }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-door-closed"></i>&nbsp;Architecture</template>
-            {{ sysInfo.architecture || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-hdd"></i>&nbsp;SELinux</template>
-            {{ sysInfo.selinux || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-cpu"></i>&nbsp;CPU Cores</template>
-            {{ sysInfo.cpuCores || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-files"></i>&nbsp;Memory Size</template>
-            {{ sysInfo.memTotal ? sysInfo.memTotal + ' MB' : '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-file-ppt"></i>&nbsp;Swap Size</template>
-            {{ sysInfo.swapTotal ? sysInfo.swapTotal + ' MB' : '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-info-circle"></i>&nbsp;Status</template>
-            <el-tag :type="statusType" size="small">{{ host.StatusInfo }}</el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-tag"></i>&nbsp;Category</template>
-            {{ host.Category || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-building"></i>&nbsp;Data Center</template>
-            {{ host.DataCenter || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-clock"></i>&nbsp;Uptime</template>
-            {{ sysInfo.uptime || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="bi bi-speedometer"></i>&nbsp;Load Average</template>
-            {{ sysInfo.loadAvg || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template #label><i class="el-icon-location-outline"></i>&nbsp;Description</template>
-            {{ host.BusinessName || '-' }}
-          </el-descriptions-item>
+          <!-- AIX 14项信息 -->
+          <template v-if="host.HostType === 'AIX'">
+            <el-descriptions-item>
+              <template #label><i class="bi bi-pc-display"></i>&nbsp;Host Type</template>
+              {{ host.HostType }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-user"></i>&nbsp;Host Name</template>
+              {{ host.HostName }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-location-outline"></i>&nbsp;IP Address</template>
+              {{ host.IPadd }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-info-circle"></i>&nbsp;Status</template>
+              <el-tag :type="statusType" size="small">{{ host.StatusInfo }}</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-tag"></i>&nbsp;Category</template>
+              {{ host.Category || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-location-outline"></i>&nbsp;Description</template>
+              {{ host.BusinessName || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-building"></i>&nbsp;Data Center</template>
+              {{ host.DataCenter || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-hdd"></i>&nbsp;Machine Type</template>
+              {{ sysInfo.machineType || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-upc-scan"></i>&nbsp;Machine Serial Number</template>
+              {{ sysInfo.serialNumber || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-cpu"></i>&nbsp;Platform Firmware Level</template>
+              {{ sysInfo.platformFirmware || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-type"></i>&nbsp;AIX Level</template>
+              {{ sysInfo.aixLevel || sysInfo.osVersion || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-speedometer"></i>&nbsp;CPU Entitled Capacity</template>
+              {{ sysInfo.cpuEntitled || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-files"></i>&nbsp;Memory Size</template>
+              {{ sysInfo.memorySize || (sysInfo.memTotal ? sysInfo.memTotal + ' MB' : '-') }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-file-ppt"></i>&nbsp;Page Space Size</template>
+              {{ sysInfo.pageSpaceSize || '-' }}
+            </el-descriptions-item>
+          </template>
+
+          <!-- Linux 信息 -->
+          <template v-else>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-pc-display"></i>&nbsp;Host Type</template>
+              {{ host.HostType }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-user"></i>&nbsp;Host Name</template>
+              {{ host.HostName }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-location-outline"></i>&nbsp;IP Address</template>
+              {{ host.IPadd }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-info-circle"></i>&nbsp;Status</template>
+              <el-tag :type="statusType" size="small">{{ host.StatusInfo }}</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-tag"></i>&nbsp;Category</template>
+              {{ host.Category || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="el-icon-location-outline"></i>&nbsp;Description</template>
+              {{ host.BusinessName || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-building"></i>&nbsp;Data Center</template>
+              {{ host.DataCenter || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-type"></i>&nbsp;OS Version</template>
+              {{ sysInfo.osVersion || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-cpu"></i>&nbsp;Kernel</template>
+              {{ sysInfo.kernel || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-door-closed"></i>&nbsp;Architecture</template>
+              {{ sysInfo.architecture || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-hdd"></i>&nbsp;SELinux</template>
+              {{ sysInfo.selinux || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-cpu"></i>&nbsp;CPU Cores</template>
+              {{ sysInfo.cpuCores || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-files"></i>&nbsp;Memory Size</template>
+              {{ sysInfo.memTotal ? sysInfo.memTotal + ' MB' : '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-file-ppt"></i>&nbsp;Swap Size</template>
+              {{ sysInfo.swapTotal ? sysInfo.swapTotal + ' MB' : '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-clock"></i>&nbsp;Uptime</template>
+              {{ sysInfo.uptime || '-' }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template #label><i class="bi bi-speedometer"></i>&nbsp;Load Average</template>
+              {{ sysInfo.loadAvg || '-' }}
+            </el-descriptions-item>
+          </template>
         </el-descriptions>
       </el-col>
     </el-row>
@@ -140,7 +207,7 @@ export default {
       gauges: [
         { label: 'CPU', value: 45, status: 'success', tooltip: 'Processor usage rate' },
         { label: 'Memory', value: 62, status: 'success', tooltip: 'Physical memory usage rate' },
-        { label: 'Swap', value: 8, status: 'success', tooltip: 'Swap usage rate' },
+        { label: 'PageSpace', value: 8, status: 'success', tooltip: 'PageSpace usage rate' },
         { label: 'FileSystem', value: 71, status: 'success', tooltip: 'The highest usage rate in the filesystems' }
       ],
       sysInfo: {
@@ -153,7 +220,15 @@ export default {
         memTotal: '',
         swapTotal: '',
         uptime: '',
-        loadAvg: ''
+        loadAvg: '',
+        // AIX 特有字段
+        machineType: '',
+        serialNumber: '',
+        platformFirmware: '',
+        aixLevel: '',
+        cpuEntitled: '',
+        memorySize: '',
+        pageSpaceSize: ''
       },
       authDialogVisible: false,
       testLoading: false,
@@ -245,10 +320,11 @@ export default {
           // Memory
           if (res.memory) {
             this.gauges[1].value = res.memory.usagePercent || 0;
-            const swapPercent = res.memory.swapTotal > 0
-              ? Math.round((res.memory.swapUsed / res.memory.swapTotal) * 100)
-              : 0;
-            this.gauges[2].value = swapPercent;
+          }
+
+          // PageSpace (AIX only)
+          if (res.pageSpace) {
+            this.gauges[2].value = res.pageSpace.usedPercent || 0;
           }
 
           // FileSystem
@@ -276,7 +352,15 @@ export default {
               memTotal: res.systemInfo.memTotal || '',
               swapTotal: res.systemInfo.swapTotal || '',
               uptime: res.uptime || '',
-              loadAvg: res.loadAvg ? `${res.loadAvg['1min']} / ${res.loadAvg['5min']} / ${res.loadAvg['15min']}` : ''
+              loadAvg: res.loadAvg ? `${res.loadAvg['1min']} / ${res.loadAvg['5min']} / ${res.loadAvg['15min']}` : '',
+              // AIX 特有字段
+              machineType: res.systemInfo.machineType || '',
+              serialNumber: res.systemInfo.serialNumber || '',
+              platformFirmware: res.systemInfo.platformFirmware || '',
+              aixLevel: res.systemInfo.aixLevel || '',
+              cpuEntitled: res.systemInfo.cpuEntitled || '',
+              memorySize: res.systemInfo.memorySize || '',
+              pageSpaceSize: res.systemInfo.pageSpaceSize || ''
             };
           }
 

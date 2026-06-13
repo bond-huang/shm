@@ -186,10 +186,10 @@ export default {
 
     async showScript() {
       try {
-        const res = await axios.get('/reports/script');
+        const res = await axios.get(`/reports/script?hostType=${this.host.HostType || 'Linux'}`);
         if (res) {
           this.scriptContent = res.script;
-          this.scriptName = res.name || 'Linux_RHEL8.sh';
+          this.scriptName = res.name || (this.host.HostType === 'AIX' ? 'AIX_Inspection.sh' : 'Linux_RHEL8.sh');
           this.scriptEditing = false;
           this.scriptDialogVisible = true;
         }
