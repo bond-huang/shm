@@ -106,15 +106,15 @@ router.post('/standard-check/:hostId/:scriptId/run', async (req, res) => {
     // 通过 SSH 执行脚本
     try {
       const { execCommand } = require('../services/sshService');
-      // 将脚本内容写入远程临时文件，然后执行
-      const scriptLines = script.script_content.split('\n');
-      // 构建一个命令：写文件 + 赋权 + 执行 + 删除
-      const escaped = script.script_content
-        .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"')
-        .replace(/\$/g, '\\$')
-        .replace(/`/g, '\\`');
-      const cmd = `cat > /tmp/_shm_run.sh << 'SCRIPT_EOF'\n${script.script_content}\nSCRIPT_EOF\nchmod +x /tmp/_shm_run.sh\nbash /tmp/_shm_run.sh 2>&1\nrm -f /tmp/_shm_run.sh`;
+      // 根据 shebang 或主机类型选择 shell
+      let shell = 'bash';
+      if (script.script_content.startsWith('#!/bin/ksh') || script.script_content.startsWith('#!/usr/bin/ksh')) {
+        shell = 'ksh';
+      } else if (script.script_content.startsWith('#!/bin/sh') || script.script_content.startsWith('#!/usr/bin/sh')) {
+        shell = 'sh';
+      }
+      // 构建命令：写文件 + 赋权 + 执行 + 删除
+      const cmd = `cat > /tmp/_shm_run.sh << 'SCRIPT_EOF'\n${script.script_content}\nSCRIPT_EOF\nchmod +x /tmp/_shm_run.sh\n${shell} /tmp/_shm_run.sh 2>&1\nrm -f /tmp/_shm_run.sh`;
       const output = await execCommand(
         host.ip_address, 22, host.ssh_user, host.ssh_password,
         cmd, 60000

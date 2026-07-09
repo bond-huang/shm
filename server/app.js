@@ -14,6 +14,8 @@ const scriptRoutes = require('./routes/scripts');
 const standardCheckRoutes = require('./routes/standardCheck');
 const analysisRoutes = require('./routes/analysis');
 const userRoutes = require('./routes/users');
+const aiRoutes = require('./routes/ai');
+const authMiddleware = require('./middleware/auth');
 const scheduler = require('./services/scheduler');
 
 const app = express();
@@ -37,6 +39,7 @@ app.use('/api', scriptRoutes);
 app.use('/api', standardCheckRoutes);
 app.use('/api', analysisRoutes);
 app.use('/api', userRoutes);
+app.use('/api', authMiddleware, aiRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
